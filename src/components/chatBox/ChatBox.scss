@@ -1,0 +1,11 @@
+@import "../../App.scss";
+
+.chatBox{
+  width: 800px;
+  height: 100vh;
+  background-color: $grey-bg;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
