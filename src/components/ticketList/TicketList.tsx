@@ -45,9 +45,9 @@ export function TicketList() {
 
   return (
     <List className="ticketList" disablePadding>
-      {tickets.map((ticket: Ticket) => (
+      {tickets.map((ticket: Ticket, index) => (
         <ListItem
-          key={ticket.id}
+          key={index}
           className="ticketList__ticket"
           divider
           alignItems="flex-start"
