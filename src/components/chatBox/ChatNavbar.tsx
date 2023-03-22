@@ -17,8 +17,8 @@ export default function ChatNavbar() {
         alignItems="center"
         paddingLeft={"15px"}
       >
-        <Customer />
-        <CustomerName />
+        {/* <Customer customer={ticket.customer} /> */}
+        {/* <CustomerName /> */}
       </Stack>
       <Stack
         direction="row"

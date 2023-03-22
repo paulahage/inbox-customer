@@ -1,7 +1,13 @@
 import { Avatar, Badge } from "@mui/material";
 import { styled } from "@mui/material/styles";
+import * as Models from "../../apiModels";
+import { URL_BASE } from "../../utils";
 
-export default function Customer() {
+interface Props {
+  customer: Models.Customer
+}
+
+export default function Customer({customer}: Props) {
   return (
     <Badge
       overlap="circular"
@@ -9,7 +15,7 @@ export default function Customer() {
       badgeContent={<SocialBadge alt="social media" src="" />}
     >
       <Avatar
-        src="https://w7.pngwing.com/pngs/193/660/png-transparent-computer-icons-woman-avatar-avatar-girl-thumbnail.png"
+        src={URL_BASE + customer.socialMediaAccount.picture}
         alt="customer photo"
         sx={{ width: 45, height: 45 }}
       />

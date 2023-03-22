@@ -4,12 +4,12 @@ import { Ticket } from "../../apiModels";
 
 // Define a type for the slice state
 interface TicketState {
-  value: Ticket[];
+  tickets: Ticket[];
 }
 
 // Define the initial state using that type
 const initialState: TicketState = {
-  value: [],
+  tickets: [],
 };
 
 export const ticketSlice = createSlice({
@@ -17,16 +17,16 @@ export const ticketSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    receiveTicket: (state: any, action: PayloadAction<Ticket>) => {
-      state.value.push(action.payload);
+    receiveTicketList: (state: TicketState, action: PayloadAction<Ticket[]>) => {
+      state.tickets = action.payload;
       return state;
     },
   },
 });
 
-export const { receiveTicket } = ticketSlice.actions;
+export const { receiveTicketList } = ticketSlice.actions;
 
 // Other code such as selectors can use the imported `RootState` type
-export const ticketCount = (state: RootState) => state.ticket.value;
+export const ticketCount = (state: RootState) => state.ticket.tickets;
 
 export default ticketSlice.reducer;
