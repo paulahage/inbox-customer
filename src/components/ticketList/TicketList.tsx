@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { receiveTicketList } from "../../redux/reducers/ticket";
-import { SocialMedia, Ticket, TicketStatus } from "../../apiModels";
+import { Ticket, TicketStatus } from "../../apiModels";
 import {
   List,
   ListItem,
@@ -75,7 +75,7 @@ export function TicketList() {
                 color={getStatusColor(ticket.status)}
                 label={getStatusText(ticket.status)}
                 size="small"
-                sx={{ width: 80, height: 20, fontSize: 12 }}
+                sx={{ width: 70, height: 20, fontSize: 12 }}
               />
               <TicketListTime />
             </Stack>
@@ -90,7 +90,11 @@ export function TicketList() {
               </ListItemAvatar>
               <ListItemText
                 className="ticketList__text"
-                secondary={<Typography variant="subtitle2">message</Typography>}
+                secondary={
+                  <Typography variant="subtitle2" noWrap fontSize={13}>
+                    message
+                  </Typography>
+                }
               >
                 <CustomerName customer={ticket.customer} />
               </ListItemText>

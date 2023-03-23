@@ -12,7 +12,9 @@ export default function Customer({customer}: Props) {
     <Badge
       overlap="circular"
       anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      badgeContent={<SocialBadge alt="social media" src="" />}
+      badgeContent={
+        <SocialBadge alt="social media" src={`../social_media_logos/${customer.socialMediaAccount.socialMedia}.png`} />
+      }
     >
       <Avatar
         src={URL_BASE + customer.socialMediaAccount.picture}

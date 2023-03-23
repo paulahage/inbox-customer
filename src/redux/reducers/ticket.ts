@@ -17,7 +17,10 @@ export const ticketSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    receiveTicketList: (state: TicketState, action: PayloadAction<Ticket[]>) => {
+    receiveTicketList: (
+      state: TicketState,
+      action: PayloadAction<Ticket[]>
+    ) => {
       state.tickets = action.payload;
       return state;
     },
