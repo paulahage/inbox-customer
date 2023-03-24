@@ -1,7 +1,12 @@
-import React, { useEffect } from "react";
+import "./TicketList.scss";
+import { URL_GET_TICKETS } from "../../utils";
+import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { receiveTicketList } from "../../redux/reducers/ticket";
-import { Ticket, TicketStatus } from "../../apiModels";
+import {
+  receiveTicketList,
+  receiveTicketChat,
+} from "../../redux/reducers/ticket";
+import { Ticket } from "../../apiModels";
 import {
   List,
   ListItem,
@@ -9,44 +14,16 @@ import {
   ListItemText,
   Typography,
   Stack,
-  Chip,
 } from "@mui/material";
 
 import Customer from "../customer/Customer";
-import "./TicketList.scss";
 import CustomerName from "../customer/CustomerName";
-import TicketListTime from "../timeTracking/TicketListTime";
-import { URL_GET_TICKETS } from "../../utils";
+import TicketStatus from "./TicketStatus";
 
 export function TicketList() {
   // The `state` arg is correctly typed as `RootState` already
   const tickets = useAppSelector((state) => state.ticket.tickets);
   const dispatch = useAppDispatch();
-
-  const getStatusColor = (ticketStatus: TicketStatus) => {
-    if (ticketStatus === TicketStatus.WAITING_FOR_CUSTOMER) {
-      return "warning"
-    }
-    return "error"
-  }
-
-  const getStatusText = (ticketStatus: TicketStatus) => {
-    if (ticketStatus === TicketStatus.WAITING_FOR_CUSTOMER) {
-      return "waiting";
-    }
-    if (ticketStatus === TicketStatus.ASSIGNED) {
-      return "assigned"
-    }
-    if (ticketStatus === TicketStatus.CUSTOMER_WAITING) {
-      return "to answer";
-    }
-    if (ticketStatus === TicketStatus.RESOLVED) {
-      return "resolved";
-    }
-    if (ticketStatus === TicketStatus.UNASSIGNED) {
-      return "unassigned";
-    }
-  };
 
   useEffect(() => {
     fetch(URL_GET_TICKETS)
@@ -63,22 +40,10 @@ export function TicketList() {
           className="ticketList__ticket"
           divider
           alignItems="flex-start"
+          onClick={()=> dispatch(receiveTicketChat(ticket))}
         >
           <Stack sx={{ width: "100%" }}>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="flex-start"
-              sx={{ width: "100%" }}
-            >
-              <Chip
-                color={getStatusColor(ticket.status)}
-                label={getStatusText(ticket.status)}
-                size="small"
-                sx={{ width: 70, height: 20, fontSize: 12 }}
-              />
-              <TicketListTime />
-            </Stack>
+            <TicketStatus status={ticket.status} />
             <Stack
               direction="row"
               justifyContent="flex-start"

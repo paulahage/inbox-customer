@@ -1,7 +1,12 @@
 import "./SingleMessageCustomer.scss"
 import { Box, Avatar, Stack, Typography } from "@mui/material";
+import { TicketEventCustomerMessage } from "../../apiModels";
+import { URL_BASE } from "../../utils";
+interface Props {
+  message: TicketEventCustomerMessage;
+}
 
-export default function SingleMessageCustomer() {
+export default function SingleMessageCustomer({ message}: Props) {
   return (
     <Stack
       direction="row"
@@ -11,7 +16,7 @@ export default function SingleMessageCustomer() {
       marginTop={"15px"}
     >
       <Avatar
-        src="https://w7.pngwing.com/pngs/193/660/png-transparent-computer-icons-woman-avatar-avatar-girl-thumbnail.png"
+        src={URL_BASE + message.customer.socialMediaAccount.picture}
         alt="customer photo"
         sx={{ width: 35, height: 35 }}
       />
@@ -21,9 +26,9 @@ export default function SingleMessageCustomer() {
         alignItems="flex-start"
         spacing={1}
       >
-        <Box className="singleMessage-customer">test</Box>
+        <Box className="singleMessage-customer">{message.text}</Box>
         <Typography variant="caption" sx={{ color: "#918f8f" }}>
-          15 m
+          {message.date}
         </Typography>
       </Stack>
     </Stack>
