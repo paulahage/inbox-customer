@@ -1,4 +1,7 @@
-import { TicketEventStatusChange } from "../../apiModels";
+import {
+  TicketEventStatusChange,
+  TicketEventStatusChangeType,
+} from "../../apiModels";
 import "./StatusChatMessage.scss";
 import { Button, Stack, Typography } from "@mui/material";
 
@@ -17,16 +20,19 @@ export default function StatusChatMessage({message}: Props) {
       className="statusMessage"
     >
       <Typography variant="caption">
-        Conversation closed as “{message.changeType }” by {message.agent.name} in 18-02-2001 15:51
+        Conversation closed as “{message.changeType}” by {message.agent.name}
+        in {message.date}
       </Typography>
-      <Button
-        variant="contained"
-        size="small"
-        color="secondary"
-        sx={{ borderRadius: 5, fontSize: 9, textTransform: "none" }}
-      >
-        Re-Open
-      </Button>
+      {message.changeType === TicketEventStatusChangeType.RESOLVED && (
+        <Button
+          variant="contained"
+          size="small"
+          color="secondary"
+          sx={{ borderRadius: 5, fontSize: 9, textTransform: "none" }}
+        >
+          Re-Open
+        </Button>
+      )}
     </Stack>
   );
 }

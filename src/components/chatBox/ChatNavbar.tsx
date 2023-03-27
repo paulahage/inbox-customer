@@ -12,8 +12,8 @@ export default function ChatNavbar({ ticket }: Props) {
     <Stack
       direction="row"
       justifyContent="space-between"
-      alignItems="flex-start"
-      sx={{ width: "100%" }}
+      alignItems="center"
+      sx={{ width: "100%" , height:"58px"}}
     >
       <Stack
         direction="row"

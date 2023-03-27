@@ -44,7 +44,7 @@ export default function Chat({ ticket }: Props) {
           }
           if (message.eventType === TicketEventType.STATUS_CHANGE) {
             return (
-              <Stack marginTop={23}>
+              <Stack marginTop={10} marginBottom={5}>
                 <StatusChatMessage
                   message={message as TicketEventStatusChange}
                 />
