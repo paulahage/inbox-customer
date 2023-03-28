@@ -3,10 +3,11 @@ import { Chip, Stack } from "@mui/material";
 import TicketListTime from "../timeTracking/TicketListTime";
 
 interface Props {
-  status: Models.TicketStatus
+  ticket: Models.Ticket;
 }
 
-export default function TicketStatus({status}: Props) {
+export default function TicketStatus({ ticket }: Props) {
+
   const getStatusColor = (ticketStatus: Models.TicketStatus) => {
     if (ticketStatus === Models.TicketStatus.WAITING_FOR_CUSTOMER) {
       return "warning";
@@ -32,7 +33,6 @@ export default function TicketStatus({status}: Props) {
     }
   };
 
-
   return (
     <Stack
       direction="row"
@@ -41,12 +41,12 @@ export default function TicketStatus({status}: Props) {
       sx={{ width: "100%" }}
     >
       <Chip
-        color={getStatusColor(status)}
-        label={getStatusText(status)}
+        color={getStatusColor(ticket.status)}
+        label={getStatusText(ticket.status)}
         size="small"
         sx={{ width: 70, height: 20, fontSize: 12 }}
       />
-      <TicketListTime />
+      <TicketListTime dateAndTime={ticket.date} />
     </Stack>
   );
 }
