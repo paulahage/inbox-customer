@@ -2,7 +2,7 @@ import "./Chat.scss";
 import { Box, Stack } from "@mui/material";
 import SingleMessageCustomer from "./SingleMessageCustomer";
 import SingleMessageAgent from "./SingleMessageAgent";
-import StatusChatMessage from "../chatBox/StatusChatMessage";
+import StatusChatMessage from "../chat/StatusChatMessage";
 
 import {
   Ticket,

@@ -34,12 +34,15 @@ export function parseDateToDisplayDate(ticketDate: string) {
 }
 
 export function getCompleteDateAndTime(statusTimeDate: string) {
+
   const newDate = new Date(statusTimeDate);
   const hour = newDate.getHours();
   const min = newDate.getMinutes();
+  const year = newDate.getFullYear();
   const date = newDate.getDate();
+  let month = newDate.getMonth() + 1;
 
-  return `${date} ${hour}:${min}`
+  return `${date}-${month <= 9 ? "0" + month : month}-${year} ${hour}:${min <=9 ? "0" + min : min}`
 }
 
 
