@@ -56,7 +56,7 @@ export function TicketList() {
               <ListItemText
                 className="ticketList__text"
                 secondary={
-                  <Typography variant="subtitle2" noWrap fontSize={13}>
+                  <Typography variant="subtitle2" noWrap fontSize={13} marginTop={1}>
                     {ticket.lastMessage}
                   </Typography>
                 }
