@@ -27,7 +27,6 @@ export default function Chat({ticket}:Props) {
   const url = `${URL_GET_TICKETS}/${ticket.id}/events`;
 
   useEffect(() => {
-    console.log("chat");
 
     fetch(url)
       .then((response) => response.json())

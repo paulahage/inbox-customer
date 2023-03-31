@@ -41,6 +41,13 @@ export const ticketSlice = createSlice({
     ) => {
       state.ticketEvents = action.payload;
       return state;
+    },
+    receiveNewTicket: (
+      state: TicketState,
+      action:PayloadAction<Ticket>
+    ) => {
+      state.tickets.unshift(action.payload)
+      return state;
     }
   },
 });
@@ -50,4 +57,5 @@ export const { receiveTicketList, receiveTicketChat, receiveTicketEvents } = tic
 // Other code such as selectors can use the imported `RootState` type
 export const ticketCount = (state: RootState) => state.ticket.tickets;
 
+export const ticketActions = ticketSlice.actions;
 export default ticketSlice.reducer;

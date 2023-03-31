@@ -1,12 +1,11 @@
 import "./TicketList.scss";
-import { URL_GET_TICKETS } from "../../utils";
 import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import {
   receiveTicketList,
   receiveTicketChat,
+  ticketActions,
 } from "../../redux/reducers/ticket";
-import { Ticket } from "../../apiModels";
 import {
   List,
   ListItem,
@@ -19,16 +18,25 @@ import {
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
 import TicketStatus from "./TicketStatus";
+import { getNewTickets, getTickets } from "../../services/TichetServices";
+import { Ticket } from "../../apiModels";
 
 export function TicketList() {
   // The `state` arg is correctly typed as `RootState` already
   const tickets = useAppSelector((state) => state.ticket.tickets);
   const dispatch = useAppDispatch();
 
+  let stopRerender = false;
   useEffect(() => {
-    fetch(URL_GET_TICKETS)
-      .then((response) => response.json())
-      .then((ticketList: Ticket[]) => dispatch(receiveTicketList(ticketList)));
+    if (stopRerender) {
+      return;
+    } else {
+      stopRerender = true;
+    }
+
+    getTickets((ticketList) => dispatch(receiveTicketList(ticketList)));
+
+    getNewTickets((ticket) => dispatch(ticketActions.receiveNewTicket(ticket)));
     //eslint-disable-next-line
   }, []);
 
@@ -56,7 +64,12 @@ export function TicketList() {
               <ListItemText
                 className="ticketList__text"
                 secondary={
-                  <Typography variant="subtitle2" noWrap fontSize={13} marginTop={1}>
+                  <Typography
+                    variant="subtitle2"
+                    noWrap
+                    fontSize={13}
+                    marginTop={1}
+                  >
                     {ticket.lastMessage}
                   </Typography>
                 }
