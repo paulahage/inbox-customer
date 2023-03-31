@@ -57,7 +57,7 @@ export function TicketList() {
                 className="ticketList__text"
                 secondary={
                   <Typography variant="subtitle2" noWrap fontSize={13}>
-                    message
+                    {ticket.lastMessage}
                   </Typography>
                 }
               >
