@@ -32,6 +32,9 @@ export function parseDateToDisplayDate(ticketDate: string) {
   } else if (minutes >= timeDatesMinutes.hour) {
     result = Math.floor(minutes / 60);
     return `${result}h`;
+  } else if(minutes < 0) {
+    result = 0
+    return `${result}m`;
   } else {
     result = minutes;
     return `${result}m`;

@@ -35,7 +35,6 @@ export function TicketList() {
     }
 
     getTickets((ticketList) => dispatch(receiveTicketList(ticketList)));
-
     getNewTickets((ticket) => dispatch(ticketActions.receiveNewTicket(ticket)));
     //eslint-disable-next-line
   }, []);
