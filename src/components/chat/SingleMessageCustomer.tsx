@@ -2,6 +2,7 @@ import "./SingleMessageCustomer.scss"
 import { Box, Avatar, Stack, Typography } from "@mui/material";
 import { TicketEventCustomerMessage } from "../../apiModels";
 import { URL_BASE } from "../../utils";
+import { parseDateToDisplayDate } from "../../services/DateService";
 interface Props {
   message: TicketEventCustomerMessage;
 }
@@ -28,7 +29,7 @@ export default function SingleMessageCustomer({ message}: Props) {
       >
         <Box className="singleMessage-customer">{message.text}</Box>
         <Typography variant="caption" sx={{ color: "#918f8f" }}>
-          {message.date}
+          {parseDateToDisplayDate(message.date)}
         </Typography>
       </Stack>
     </Stack>
