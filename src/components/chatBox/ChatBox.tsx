@@ -1,6 +1,6 @@
 import "./ChatBox.scss";
 import { Box, Typography } from "@mui/material";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from "../../redux/Hooks";
 
 import ChatNavbar from "./ChatNavbar";
 import Chat from "../chat/Chat";

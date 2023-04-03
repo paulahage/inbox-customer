@@ -1,38 +1,12 @@
-import * as Models from "../../apiModels";
+import * as Models from "../../ApiModels";
 import { Chip, Stack } from "@mui/material";
 import TicketListTime from "../timeTracking/TicketListTime";
-
+import { getStatusText, getStatusColor } from "../../services/TicketsServices";
 interface Props {
   ticket: Models.Ticket;
 }
 
 export default function TicketStatus({ ticket }: Props) {
-
-  const getStatusColor = (ticketStatus: Models.TicketStatus) => {
-    if (ticketStatus === Models.TicketStatus.WAITING_FOR_CUSTOMER) {
-      return "warning";
-    }
-    return "error";
-  };
-
-  const getStatusText = (ticketStatus: Models.TicketStatus) => {
-    if (ticketStatus === Models.TicketStatus.WAITING_FOR_CUSTOMER) {
-      return "waiting";
-    }
-    if (ticketStatus === Models.TicketStatus.ASSIGNED) {
-      return "assigned";
-    }
-    if (ticketStatus === Models.TicketStatus.CUSTOMER_WAITING) {
-      return "to answer";
-    }
-    if (ticketStatus === Models.TicketStatus.RESOLVED) {
-      return "resolved";
-    }
-    if (ticketStatus === Models.TicketStatus.UNASSIGNED) {
-      return "unassigned";
-    }
-  };
-
   return (
     <Stack
       direction="row"
