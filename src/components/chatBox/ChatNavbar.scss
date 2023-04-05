@@ -1,8 +1,15 @@
 @import "../../App.scss";
 
-.button{
-  background-color: $button-color;
-  width: 115px;
-  height: 30px;
-  border-radius: 50px;
+.chatNavbar__typing {
+  color: $secondary-text;
+}
+
+.chatNavbar__loading_typing {
+  height: 5px;
+  position: relative;
+  top: -3px;
+}
+
+.chatNavbar__re-assign-btn {
+  white-space: nowrap;
 }
