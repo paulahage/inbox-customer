@@ -43,7 +43,7 @@ export function TicketList() {
           onClick={()=> dispatch(receiveTicketChat(ticket))}
         >
           <Stack sx={{ width: "100%" }}>
-            <TicketStatus status={ticket.status} />
+            <TicketStatus ticket={ticket} />
             <Stack
               direction="row"
               justifyContent="flex-start"

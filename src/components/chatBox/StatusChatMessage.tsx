@@ -20,7 +20,7 @@ export default function StatusChatMessage({message}: Props) {
       className="statusMessage"
     >
       <Typography variant="caption">
-        Conversation closed as “{message.changeType}” by {message.agent.name}
+        Conversation “{message.changeType}” by {message.agent.name}
         in {message.date}
       </Typography>
       {message.changeType === TicketEventStatusChangeType.RESOLVED && (
