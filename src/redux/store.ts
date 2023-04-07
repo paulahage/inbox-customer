@@ -1,7 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import ticket from "./reducers/ticket";
 
-
 export const store = configureStore({
   reducer: {
     ticket
