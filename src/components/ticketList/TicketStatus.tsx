@@ -1,7 +1,7 @@
 import * as Models from "../../ApiModels";
 import { Chip, Stack } from "@mui/material";
 import TicketListTime from "../timeTracking/TicketListTime";
-import { getStatusText, getStatusColor } from "../../services/TicketsServices";
+import { getStatusText, getStatusColor } from "../../services/UxServices";
 interface Props {
   ticket: Models.Ticket;
 }
