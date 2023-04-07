@@ -2,6 +2,7 @@ import {
   TicketEventStatusChange,
   TicketEventStatusChangeType,
 } from "../../apiModels";
+import { getCompleteDateAndTime } from "../../services/DateService";
 import "./StatusChatMessage.scss";
 import { Button, Stack, Typography } from "@mui/material";
 
@@ -9,7 +10,7 @@ interface Props {
   message: TicketEventStatusChange;
 }
 
-export default function StatusChatMessage({message}: Props) {
+export default function StatusChatMessage({ message }: Props) {
   return (
     <Stack
       direction="column"
@@ -20,8 +21,7 @@ export default function StatusChatMessage({message}: Props) {
       className="statusMessage"
     >
       <Typography variant="caption">
-        Conversation “{message.changeType}” by {message.agent.name}
-        in {message.date}
+        Conversation “{message.changeType}” by {message.agent.name} in {getCompleteDateAndTime(message.date)}
       </Typography>
       {message.changeType === TicketEventStatusChangeType.RESOLVED && (
         <Button
