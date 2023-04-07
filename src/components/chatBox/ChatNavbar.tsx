@@ -1,15 +1,19 @@
-import "./ChatNavbar.scss"
+import "./ChatNavbar.scss";
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
 import { Stack, Button } from "@mui/material";
+import { Ticket } from "../../apiModels";
+interface Props {
+  ticket: Ticket;
+}
 
-export default function ChatNavbar() {
+export default function ChatNavbar({ ticket }: Props) {
   return (
     <Stack
       direction="row"
       justifyContent="space-between"
-      alignItems="flex-start"
-      sx={{ width: "100%" }}
+      alignItems="center"
+      sx={{ width: "100%" , height:"58px"}}
     >
       <Stack
         direction="row"
@@ -17,8 +21,8 @@ export default function ChatNavbar() {
         alignItems="center"
         paddingLeft={"15px"}
       >
-        {/* <Customer customer={ticket.customer} /> */}
-        {/* <CustomerName /> */}
+        <Customer customer={ticket.customer} />
+        <CustomerName customer={ticket.customer} />
       </Stack>
       <Stack
         direction="row"

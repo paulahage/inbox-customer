@@ -1,7 +1,12 @@
 import "./SingleMessageAgent.scss";
 import { Box, Avatar, Stack, Typography } from "@mui/material";
+import { TicketEventAgentMessage } from "../../apiModels";
+import { URL_BASE } from "../../utils";
+interface Props {
+  message: TicketEventAgentMessage;
+}
 
-export default function SingleMessageAgent() {
+export default function SingleMessageAgent({message}: Props) {
   return (
     <Stack
       direction="column"
@@ -16,19 +21,19 @@ export default function SingleMessageAgent() {
         marginTop={"15px"}
         spacing={2}
       >
-        <Box className="singleMessage-agent">Response</Box>
+        <Box className="singleMessage-agent">{message.text }</Box>
         <Avatar
-          src="https://w7.pngwing.com/pngs/193/660/png-transparent-computer-icons-woman-avatar-avatar-girl-thumbnail.png"
+          src={URL_BASE + message.agent.picture}
           alt="customer photo"
           sx={{ width: 35, height: 35 }}
         />
       </Stack>
       <Stack direction="row" justifyContent="flex-end">
         <Typography variant="caption" sx={{ color: "#918f8f", marginRight:"5px" }}>
-          15 m
+          {message.date}
         </Typography>
         <Typography variant="caption" sx={{ color: "#918f8f" }}>
-          - Agent: Mirella
+          - Agent: {message.agent.name}
         </Typography>
       </Stack>
     </Stack>

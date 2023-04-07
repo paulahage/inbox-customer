@@ -1,26 +1,33 @@
-import React from "react";
 import "./ChatBox.scss";
-import { Box, Stack } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { useAppSelector } from "../../redux/hooks";
 
 import ChatNavbar from "./ChatNavbar";
 import Chat from "../chat/Chat";
 import ChatInput from "./ChatInput";
-import ReOpenChat from "./ReOpenChat";
 
 export default function ChatBox() {
-  return (
+  const selectedTicket = useAppSelector((state) => state.ticket.ticket);
+  const tickets = useAppSelector((state) => state.ticket.tickets);
+  let ticket;
+
+  if (selectedTicket) {
+    ticket = selectedTicket;
+  } else if (tickets[0]) {
+    ticket = tickets[0];
+  }
+
+  return ticket ? (
     <Box className="chatBox">
-      <ChatNavbar />
-      <Chat />
-      <Stack
-        direction="column"
-        justifyContent="space-between"
-        alignItems="flex-start"
-        sx={{ width: "100%", height: "32%" }}
-      >
-        <ReOpenChat />
-        <ChatInput />
-      </Stack>
+      <ChatNavbar ticket={ticket} />
+      <Chat ticket={ticket} />
+      <ChatInput />
+    </Box>
+  ) : (
+    <Box className="chatBox__loader">
+      <Typography variant="subtitle1" sx={{ color: "#918f8f" }}>
+        No messages yet
+      </Typography>
     </Box>
   );
 }

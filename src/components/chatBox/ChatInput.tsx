@@ -11,6 +11,7 @@ export default function ChatInput() {
       noValidate
       sx={{ width: "100%" }}
       spacing={2}
+      marginTop={5}
     >
       <TextField
         fullWidth
