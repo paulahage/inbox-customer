@@ -1,4 +1,6 @@
 import "./Chat.scss";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { URL_GET_TICKETS } from "../../utils";
 import { Box, Stack } from "@mui/material";
 import SingleMessageCustomer from "./SingleMessageCustomer";
 import SingleMessageAgent from "./SingleMessageAgent";
@@ -6,17 +8,32 @@ import StatusChatMessage from "../chat/StatusChatMessage";
 
 import {
   Ticket,
+  TicketEvents,
   TicketEvent,
   TicketEventAgentMessage,
   TicketEventCustomerMessage,
   TicketEventStatusChange,
   TicketEventType,
 } from "../../apiModels";
+import { useEffect } from "react";
+import { receiveTicketEvents } from "../../redux/reducers/ticket";
 interface Props {
   ticket: Ticket;
 }
 
-export default function Chat({ ticket }: Props) {
+export default function Chat({ticket}:Props) {
+  const ticketEvents = useAppSelector((state) => state.ticket.ticketEvents);
+  const dispatch = useAppDispatch();
+  const url = `${URL_GET_TICKETS}/${ticket.id}/events`;
+
+  useEffect(() => {
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((events: TicketEvents) => dispatch(receiveTicketEvents(events)));
+    //eslint-disable-next-line
+  },[ticket.id])
+
   return (
     <Stack
       direction="column"
@@ -25,7 +42,7 @@ export default function Chat({ ticket }: Props) {
       sx={{ width: "100%" }}
     >
       <Box className="chat">
-        {ticket.events.map((message: TicketEvent) => {
+        {ticketEvents?.events.map((message: TicketEvent) => {
           if (message.eventType === TicketEventType.CUSTOMER_MESSAGE) {
             return (
               <SingleMessageCustomer
@@ -51,6 +68,7 @@ export default function Chat({ ticket }: Props) {
               </Stack>
             );
           }
+          return undefined;
         })}
       </Box>
     </Stack>

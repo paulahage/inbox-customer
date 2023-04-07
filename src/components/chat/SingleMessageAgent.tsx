@@ -2,6 +2,7 @@ import "./SingleMessageAgent.scss";
 import { Box, Avatar, Stack, Typography } from "@mui/material";
 import { TicketEventAgentMessage } from "../../apiModels";
 import { URL_BASE } from "../../utils";
+import { parseDateToDisplayDate } from "../../services/DateService";
 interface Props {
   message: TicketEventAgentMessage;
 }
@@ -30,7 +31,7 @@ export default function SingleMessageAgent({message}: Props) {
       </Stack>
       <Stack direction="row" justifyContent="flex-end">
         <Typography variant="caption" sx={{ color: "#918f8f", marginRight:"5px" }}>
-          {message.date}
+          {parseDateToDisplayDate(message.date)}
         </Typography>
         <Typography variant="caption" sx={{ color: "#918f8f" }}>
           - Agent: {message.agent.name}

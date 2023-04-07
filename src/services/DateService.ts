@@ -8,6 +8,7 @@ const timeDatesMinutes = {
 };
 
 export function parseDateToDisplayDate(ticketDate: string) {
+
   const datePostMillisec = Date.parse(ticketDate);
   const dateNow = new Date().toISOString();
   const dateNowMillisec = Date.parse(dateNow);
@@ -28,8 +29,12 @@ export function parseDateToDisplayDate(ticketDate: string) {
   } else if (minutes >= timeDatesMinutes.day) {
     result = Math.floor(minutes / 1440);
     return `${result}d`;
+  } else if (minutes >= timeDatesMinutes.hour) {
+    result = Math.floor(minutes / 60);
+    return `${result}h`;
   } else {
-    return "";
+    result = minutes;
+    return `${result}m`;
   }
 }
 

@@ -63,12 +63,25 @@ export interface TicketEventStatusChange extends TicketEvent {
   agent: Agent;
   changeType: TicketEventStatusChangeType;
 }
-
 export interface Ticket {
   id: string;
   customer: Customer;
   agent?: Agent;
   status: TicketStatus;
   date: string;
+  lastMessage?: string;
+}
+
+export interface TicketEvents {
+  id: string;
+  customer: Customer;
+  agent?: Agent;
+  status: TicketStatus;
+  date: string;
   events: TicketEvent[];
+}
+
+export enum NotificationEvent {
+  TICKET_NEW = "ticket-new",
+  TICKET_UPDATE = "ticket-update",
 }
