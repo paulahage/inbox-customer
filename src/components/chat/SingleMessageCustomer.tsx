@@ -1,13 +1,13 @@
-import "./SingleMessageCustomer.scss"
+import "./SingleMessageCustomer.scss";
 import { Box, Avatar, Stack, Typography } from "@mui/material";
-import { TicketEventCustomerMessage } from "../../apiModels";
+import { TicketEventCustomerMessage } from "../../ApiModels";
 import { URL_BASE } from "../../utils";
 import { parseDateToDisplayDate } from "../../services/DateService";
 interface Props {
   message: TicketEventCustomerMessage;
 }
 
-export default function SingleMessageCustomer({ message}: Props) {
+export default function SingleMessageCustomer({ message }: Props) {
   return (
     <Stack
       direction="row"

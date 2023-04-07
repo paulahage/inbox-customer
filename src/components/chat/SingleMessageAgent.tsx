@@ -1,13 +1,13 @@
 import "./SingleMessageAgent.scss";
 import { Box, Avatar, Stack, Typography } from "@mui/material";
-import { TicketEventAgentMessage } from "../../apiModels";
+import { TicketEventAgentMessage } from "../../ApiModels";
 import { URL_BASE } from "../../utils";
-import { parseDateToDisplayDate } from "../../services/DateService";
+import { parseDateToDisplayDate } from "../../services/DateServices";
 interface Props {
   message: TicketEventAgentMessage;
 }
 
-export default function SingleMessageAgent({message}: Props) {
+export default function SingleMessageAgent({ message }: Props) {
   return (
     <Stack
       direction="column"
@@ -22,7 +22,7 @@ export default function SingleMessageAgent({message}: Props) {
         marginTop={"15px"}
         spacing={2}
       >
-        <Box className="singleMessage-agent">{message.text }</Box>
+        <Box className="singleMessage-agent">{message.text}</Box>
         <Avatar
           src={URL_BASE + message.agent.picture}
           alt="customer photo"
@@ -30,7 +30,10 @@ export default function SingleMessageAgent({message}: Props) {
         />
       </Stack>
       <Stack direction="row" justifyContent="flex-end">
-        <Typography variant="caption" sx={{ color: "#918f8f", marginRight:"5px" }}>
+        <Typography
+          variant="caption"
+          sx={{ color: "#918f8f", marginRight: "5px" }}
+        >
           {parseDateToDisplayDate(message.date)}
         </Typography>
         <Typography variant="caption" sx={{ color: "#918f8f" }}>

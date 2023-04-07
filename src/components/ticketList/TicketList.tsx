@@ -1,11 +1,14 @@
 import "./TicketList.scss";
 import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/Hooks";
+import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
+import { getTickets } from "../../services/ApiServices";
+import * as Models from "../../ApiModels";
 import {
   receiveTicketList,
   receiveTicketChat,
   ticketActions,
-} from "../../redux/reducers/ticket";
+} from "../../redux/reducers/TicketReducer";
 import {
   List,
   ListItem,
@@ -19,12 +22,8 @@ import {
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
 import TicketStatus from "./TicketStatus";
-import { getNewTickets, getTickets } from "../../services/TichetServices";
-import { Ticket } from "../../apiModels";
-import * as Models from "../../apiModels";
 
 export function TicketList() {
-  // The `state` arg is correctly typed as `RootState` already
   const tickets = useAppSelector((state) => state.ticket.tickets);
   const dispatch = useAppDispatch();
 
@@ -38,12 +37,15 @@ export function TicketList() {
 
     getTickets((ticketList) => dispatch(receiveTicketList(ticketList)));
     getNewTickets((ticket) => dispatch(ticketActions.receiveNewTicket(ticket)));
+    getTicketUpdate((ticket) => {
+      dispatch(ticketActions.receiveTicketStatusUpdate(ticket));
+    });
     //eslint-disable-next-line
   }, []);
 
   return (
     <List className="ticketList" disablePadding>
-      {tickets.map((ticket: Ticket) => (
+      {tickets.map((ticket: Models.Ticket) => (
         <ListItem
           key={ticket.id}
           className="ticketList__ticket"

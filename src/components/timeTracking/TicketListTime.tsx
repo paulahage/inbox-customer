@@ -1,7 +1,7 @@
 import { Typography } from "@mui/material";
-import {parseDateToDisplayDate} from "../../services/DateService";
+import { parseDateToDisplayDate } from "../../services/DateServices";
 interface Props {
-  dateAndTime: string
+  dateAndTime: string;
 }
 
 export default function TicketListTime({ dateAndTime }: Props) {

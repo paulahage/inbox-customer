@@ -2,7 +2,7 @@ import "./ChatNavbar.scss";
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
 import { Stack, Button } from "@mui/material";
-import { Ticket } from "../../apiModels";
+import { Ticket } from "../../ApiModels";
 interface Props {
   ticket: Ticket;
 }
@@ -13,7 +13,7 @@ export default function ChatNavbar({ ticket }: Props) {
       direction="row"
       justifyContent="space-between"
       alignItems="center"
-      sx={{ width: "100%" , height:"58px"}}
+      sx={{ width: "100%", height: "58px" }}
     >
       <Stack
         direction="row"

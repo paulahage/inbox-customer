@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import ticket from "./reducers/ticket";
+import ticket from "./reducers/TicketReducer";
 
 export const store = configureStore({
   reducer: {
-    ticket
+    ticket,
   },
 });
 

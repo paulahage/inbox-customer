@@ -1,8 +1,8 @@
 import {
   TicketEventStatusChange,
   TicketEventStatusChangeType,
-} from "../../apiModels";
-import { getCompleteDateAndTime } from "../../services/DateService";
+} from "../../ApiModels";
+import { getCompleteDateAndTime } from "../../services/DateServices";
 import "./StatusChatMessage.scss";
 import { Button, Stack, Typography } from "@mui/material";
 
@@ -21,7 +21,8 @@ export default function StatusChatMessage({ message }: Props) {
       className="statusMessage"
     >
       <Typography variant="caption">
-        Conversation “{message.changeType}” by {message.agent.name} in {getCompleteDateAndTime(message.date)}
+        Conversation “{message.changeType}” by {message.agent.name} in{" "}
+        {getCompleteDateAndTime(message.date)}
       </Typography>
       {message.changeType === TicketEventStatusChangeType.RESOLVED && (
         <Button
