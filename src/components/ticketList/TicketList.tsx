@@ -13,6 +13,7 @@ import {
   ListItemText,
   Typography,
   Stack,
+  IconButton,
 } from "@mui/material";
 
 import Customer from "../customer/Customer";
@@ -20,6 +21,7 @@ import CustomerName from "../customer/CustomerName";
 import TicketStatus from "./TicketStatus";
 import { getNewTickets, getTickets } from "../../services/TichetServices";
 import { Ticket } from "../../apiModels";
+import * as Models from "../../apiModels";
 
 export function TicketList() {
   // The `state` arg is correctly typed as `RootState` already
@@ -35,7 +37,6 @@ export function TicketList() {
     }
 
     getTickets((ticketList) => dispatch(receiveTicketList(ticketList)));
-
     getNewTickets((ticket) => dispatch(ticketActions.receiveNewTicket(ticket)));
     //eslint-disable-next-line
   }, []);
@@ -48,14 +49,14 @@ export function TicketList() {
           className="ticketList__ticket"
           divider
           alignItems="flex-start"
-          onClick={()=> dispatch(receiveTicketChat(ticket))}
+          onClick={() => dispatch(receiveTicketChat(ticket))}
         >
           <Stack sx={{ width: "100%" }}>
             <TicketStatus ticket={ticket} />
             <Stack
               direction="row"
               justifyContent="flex-start"
-              alignItems="flex-start"
+              alignItems="center"
               sx={{ width: "100%" }}
             >
               <ListItemAvatar>
@@ -76,6 +77,15 @@ export function TicketList() {
               >
                 <CustomerName customer={ticket.customer} />
               </ListItemText>
+              {ticket.status === Models.TicketStatus.UNASSIGNED && (
+                <IconButton>
+                  <img
+                    src="../icons/Assing_Button.svg"
+                    alt="assign new ticket"
+                    className="ticketList__assing-btn"
+                  />
+                </IconButton>
+              )}
             </Stack>
           </Stack>
         </ListItem>
