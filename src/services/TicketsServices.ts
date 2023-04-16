@@ -10,15 +10,12 @@ export const getNewTickets = (callback: (oneTicket: Ticket) => void) => {
   socket.on(NotificationEvent.TICKET_NEW, (ticket: Ticket) => {
     callback(ticket);
     playNotification();
-    console.log("socket io");
   });
 };
 
 export const getTicketUpdate = (callback: (oneTicket: Ticket) => void) => {
   socket.on(NotificationEvent.TICKET_UPDATE, (ticket: Ticket) => {
     callback(ticket);
-    console.log('change status');
-    
   });
 };
 

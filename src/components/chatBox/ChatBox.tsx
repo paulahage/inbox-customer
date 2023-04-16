@@ -9,6 +9,7 @@ import ChatInput from "./ChatInput";
 export default function ChatBox() {
   const selectedTicket = useAppSelector((state) => state.ticket.ticket);
   const tickets = useAppSelector((state) => state.ticket.tickets);
+
   let ticket;
 
   if (selectedTicket) {
@@ -21,7 +22,7 @@ export default function ChatBox() {
     <Box className="chatBox">
       <ChatNavbar ticket={ticket} />
       <Chat ticket={ticket} />
-      <ChatInput />
+      <ChatInput ticket={ticket} />
     </Box>
   ) : (
     <Box className="chatBox__loader">
