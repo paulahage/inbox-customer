@@ -1,8 +1,8 @@
 import "./SingleMessageCustomer.scss";
 import { Box, Avatar, Stack, Typography } from "@mui/material";
-import { TicketEventCustomerMessage } from "../../ApiModels";
+import { TicketEventCustomerMessage } from "../../apiModels";
 import { URL_BASE } from "../../utils";
-import { parseDateToDisplayDate } from "../../services/DateService";
+import { parseDateToDisplayDate } from "../../services/DateServices";
 interface Props {
   message: TicketEventCustomerMessage;
 }

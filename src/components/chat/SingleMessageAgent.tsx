@@ -1,6 +1,6 @@
 import "./SingleMessageAgent.scss";
 import { Box, Avatar, Stack, Typography } from "@mui/material";
-import { TicketEventAgentMessage } from "../../ApiModels";
+import { TicketEventAgentMessage } from "../../apiModels";
 import { URL_BASE } from "../../utils";
 import { parseDateToDisplayDate } from "../../services/DateServices";
 interface Props {

@@ -1,5 +1,5 @@
 import { URL_GET_TICKETS } from "../utils";
-import { Ticket } from "../ApiModels";
+import { Ticket } from "../apiModels";
 
 export const getTickets = (callBack: (list: Ticket[]) => void) => {
   fetch(URL_GET_TICKETS)

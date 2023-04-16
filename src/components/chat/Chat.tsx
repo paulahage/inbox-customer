@@ -1,5 +1,5 @@
 import "./Chat.scss";
-import { useAppSelector, useAppDispatch } from "../../redux/Hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { URL_GET_TICKETS } from "../../utils";
 import { Box, Stack } from "@mui/material";
 import SingleMessageCustomer from "./SingleMessageCustomer";
@@ -14,7 +14,7 @@ import {
   TicketEventCustomerMessage,
   TicketEventStatusChange,
   TicketEventType,
-} from "../../ApiModels";
+} from "../../apiModels";
 import { useEffect } from "react";
 import { receiveTicketEvents } from "../../redux/reducers/TicketReducer";
 interface Props {

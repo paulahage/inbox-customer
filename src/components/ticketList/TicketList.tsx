@@ -1,9 +1,9 @@
 import "./TicketList.scss";
 import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../redux/Hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
 import { getTickets } from "../../services/ApiServices";
-import * as Models from "../../ApiModels";
+import * as Models from "../../apiModels";
 import {
   receiveTicketList,
   receiveTicketChat,

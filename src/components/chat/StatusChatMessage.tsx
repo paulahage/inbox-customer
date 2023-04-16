@@ -1,7 +1,7 @@
 import {
   TicketEventStatusChange,
   TicketEventStatusChangeType,
-} from "../../ApiModels";
+} from "../../apiModels";
 import { getCompleteDateAndTime } from "../../services/DateServices";
 import "./StatusChatMessage.scss";
 import { Button, Stack, Typography } from "@mui/material";

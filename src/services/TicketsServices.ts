@@ -1,5 +1,5 @@
 import { WS_URL } from "../utils";
-import { Ticket, NotificationEvent } from "../ApiModels";
+import { Ticket, NotificationEvent } from "../apiModels";
 import { io } from "socket.io-client";
 import { playNotification } from "./UxServices";
 
