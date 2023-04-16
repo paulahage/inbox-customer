@@ -1,9 +1,9 @@
 import "./TicketList.scss";
 import { useEffect } from "react";
-import { useAppSelector, useAppDispatch } from "../../redux/Hooks";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
-import { getTickets } from "../../services/ApiServices";
-import * as Models from "../../ApiModels";
+import { assignTicket, getTickets } from "../../services/ApiServices";
+import * as Models from "../../apiModels";
 import {
   receiveTicketList,
   receiveTicketChat,
@@ -26,6 +26,10 @@ import TicketStatus from "./TicketStatus";
 export function TicketList() {
   const tickets = useAppSelector((state) => state.ticket.tickets);
   const dispatch = useAppDispatch();
+
+  const handleAssingTicket = (ticketId: string) => {
+    assignTicket(ticketId);
+  }
 
   let stopRerender = false;
   useEffect(() => {
@@ -78,7 +82,7 @@ export function TicketList() {
                 <CustomerName customer={ticket.customer} />
               </ListItemText>
               {ticket.status === Models.TicketStatus.UNASSIGNED && (
-                <IconButton>
+                <IconButton onClick={()=> handleAssingTicket(ticket.id)}>
                   <img
                     src="../icons/Assing_Button.svg"
                     alt="assign new ticket"

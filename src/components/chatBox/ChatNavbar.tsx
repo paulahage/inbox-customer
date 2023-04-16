@@ -2,7 +2,7 @@ import "./ChatNavbar.scss";
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
 import { Stack, Button, Typography } from "@mui/material";
-import { Ticket } from "../../ApiModels";
+import { Ticket } from "../../apiModels";
 interface Props {
   ticket: Ticket;
 }

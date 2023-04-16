@@ -1,6 +1,6 @@
 import { Avatar, Badge } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import * as Models from "../../ApiModels";
+import * as Models from "../../apiModels";
 import { URL_BASE } from "../../utils";
 
 interface Props {

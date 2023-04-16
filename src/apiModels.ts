@@ -84,4 +84,6 @@ export interface TicketEvents {
 export enum NotificationEvent {
   TICKET_NEW = "ticket-new",
   TICKET_UPDATE = "ticket-update",
+  TICKET_NEW_EVENT= "ticket-event-new"
 }
+

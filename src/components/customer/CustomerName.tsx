@@ -1,5 +1,5 @@
 import { Typography, Stack } from "@mui/material";
-import * as Models from "../../ApiModels";
+import * as Models from "../../apiModels";
 interface Props {
   customer: Models.Customer;
 }

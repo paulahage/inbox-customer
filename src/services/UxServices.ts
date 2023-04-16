@@ -1,5 +1,5 @@
 import { createTheme } from "@mui/material/styles";
-import { TicketStatus } from "../ApiModels";
+import { TicketStatus } from "../apiModels";
 
 export const theme = createTheme({
   palette: {
