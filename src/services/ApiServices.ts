@@ -1,4 +1,4 @@
-import { URL_GET_TICKETS } from "../utils";
+import { URL_BASE, URL_GET_TICKETS } from "../utils";
 import { Ticket } from "../apiModels";
 
 export const getTickets = (callBack: (list: Ticket[]) => void) => {
@@ -7,4 +7,12 @@ export const getTickets = (callBack: (list: Ticket[]) => void) => {
     .then((ticketList: Ticket[]) => {
       callBack(ticketList);
     });
+};
+
+export const assignTicket = (ticketId: string) => {
+  fetch(`${URL_BASE}/ticket/${ticketId}/assign/0`, { method: "POST" }).then(
+    (response) => {
+      return response;
+    }
+  );
 };
