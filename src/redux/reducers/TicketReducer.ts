@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Ticket, TicketEvents } from "../../apiModels";
+import { Ticket, TicketEvents, TicketEvent } from "../../apiModels";
 
 interface TicketState {
   tickets: Ticket[];
@@ -35,6 +35,10 @@ export const ticketSlice = createSlice({
       state.ticketEvents = action.payload;
       return state;
     },
+    receiveNewTicketEvent: (state: TicketState, action: PayloadAction<TicketEvent>) => {
+      state.ticketEvents?.events.push(action.payload);
+      return state;
+    },
     receiveNewTicket: (state: TicketState, action: PayloadAction<Ticket>) => {
       state.tickets.unshift(action.payload);
       return state;
@@ -49,11 +53,16 @@ export const ticketSlice = createSlice({
       state.tickets[ticketIndex] = action.payload;
       return state;
     },
+
   },
 });
 
-export const { receiveTicketList, receiveTicketChat, receiveTicketEvents } =
-  ticketSlice.actions;
+export const {
+  receiveTicketList,
+  receiveTicketChat,
+  receiveTicketEvents,
+  receiveNewTicketEvent,
+} = ticketSlice.actions;
 
 export const ticketActions = ticketSlice.actions;
 export default ticketSlice.reducer;

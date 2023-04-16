@@ -1,22 +1,25 @@
 import "./ChatBox.scss";
 import { Box, Typography } from "@mui/material";
-import { useAppSelector } from "../../redux/hooks";
-
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { receiveNewTicketEvent} from "../../redux/reducers/TicketReducer";
 import ChatNavbar from "./ChatNavbar";
 import Chat from "../chat/Chat";
 import ChatInput from "./ChatInput";
+import { useEffect } from "react";
+import { listenChatRoom } from "../../services/TicketsServices";
+import { TicketEvent } from "../../apiModels";
 
 export default function ChatBox() {
-  const selectedTicket = useAppSelector((state) => state.ticket.ticket);
-  const tickets = useAppSelector((state) => state.ticket.tickets);
+  const ticket = useAppSelector((state) => state.ticket.ticket);
+  const dispatch = useAppDispatch();
 
-  let ticket;
-
-  if (selectedTicket) {
-    ticket = selectedTicket;
-  } else if (tickets[0]) {
-    ticket = tickets[0];
-  }
+  useEffect(() => {
+    if (ticket) {
+      listenChatRoom(ticket.id, (event: TicketEvent) => {
+        dispatch(receiveNewTicketEvent(event));
+      });
+    }
+  }, [ticket]);
 
   return ticket ? (
     <Box className="chatBox">
