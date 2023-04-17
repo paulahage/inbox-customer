@@ -1,10 +1,8 @@
 import "./TicketList.scss";
-import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
 import { assignTicket } from "../../services/ApiServices";
 import * as Models from "../../apiModels";
-import { receiveTicketChat, ticketActions} from "../../redux/reducers/TicketReducer";
+import { receiveTicketChat} from "../../redux/reducers/TicketReducer";
 import {
   List,
   ListItem,
@@ -26,18 +24,6 @@ export function TicketList() {
   const handleAssignTicket = (ticketId: string) => {
     assignTicket(ticketId);
   };
-
-  let stopRerender = false;
-  useEffect(() => {
-    if (stopRerender) {
-      return;
-    } else {
-      stopRerender = true;
-    }
-    //getNewTickets((ticket) => dispatch(ticketActions.receiveNewTicket(ticket)));
-    //getTicketUpdate((ticket) => dispatch(ticketActions.receiveTicketStatusUpdate(ticket)));
-    //eslint-disable-next-line
-  }, [tickets]);
 
   return (
     <List className="ticketList" disablePadding>

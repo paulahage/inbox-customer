@@ -1,27 +1,67 @@
 import { Badge, Box, IconButton, Stack } from "@mui/material";
+import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import "./SideNavbar.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
 import {
   receiveUnassignedTicketList,
-  receiveUnassignedTicketListByAgent,
-  receiveDoneTicketListByAgent,
+  receiveAssignedTicketListByAgent,
+  receiveResolvedTicketListByAgent,
   receiveAllResolvedTicketList,
+  receiveListView,
+  receiveNewTicket,
+  receiveTicketStatusUpdate,
 } from "../../redux/reducers/TicketReducer";
 import {
   getUnassignedTickets,
-  getUnassignedTicketsByAgent,
-  getDoneTicketsByAgent,
+  getAssignedTicketsByAgent,
+  getResolvedTicketsByAgent,
   getAllResolvedTickets,
 } from "../../services/ApiServices";
+import { useEffect } from "react";
 
 export function SideNavbar() {
   //const tickets = useAppSelector((state) => state.ticket.tickets);
   const dispatch = useAppDispatch();
 
-  const handleUnassignedTickets = () => getUnassignedTickets((ticketList) => dispatch(receiveUnassignedTicketList(ticketList)));
-  const handleUnassignedTicketsByAgent = () => getUnassignedTicketsByAgent((unassignedTicketListByAgent) => dispatch(receiveUnassignedTicketListByAgent(unassignedTicketListByAgent)));
-  const handleDoneTicketsByAgent = () => getDoneTicketsByAgent((doneTicketListByAgent) => dispatch(receiveDoneTicketListByAgent(doneTicketListByAgent)));
-  const handleAllResolvedTickets = () => getAllResolvedTickets((allResolvedTicketList) => dispatch(receiveAllResolvedTicketList(allResolvedTicketList)));
+  const handleUnassignedTickets = () => {
+    dispatch(receiveListView("unassignedList"));
+    getUnassignedTickets((ticketList) =>
+      dispatch(receiveUnassignedTicketList(ticketList))
+    );
+  };
+  const handleAssignedTicketsByAgent = () => {
+    dispatch(receiveListView("assignedAgentList"));
+    getAssignedTicketsByAgent((assignedTicketListByAgent) =>
+      dispatch(receiveAssignedTicketListByAgent(assignedTicketListByAgent))
+    );
+  }
+  const handleResolvedTicketsByAgent = () => {
+    dispatch(receiveListView("resolvedAgentList"));
+    getResolvedTicketsByAgent((resolvedTicketListByAgent) =>
+      dispatch(receiveResolvedTicketListByAgent(resolvedTicketListByAgent))
+    );
+  }
+  const handleAllResolvedTickets = () => {
+    dispatch(receiveListView("resolvedAllList"));
+    getAllResolvedTickets((allResolvedTicketList) =>
+      dispatch(receiveAllResolvedTicketList(allResolvedTicketList))
+    );
+  }
+
+  let stopRerender = false;
+  useEffect(() => {
+    if (stopRerender) {
+      return;
+    } else {
+      stopRerender = true;
+    }
+    console.log("useEffect ticket list");
+
+    getNewTickets((ticket) => dispatch(receiveNewTicket(ticket)));
+    getTicketUpdate((ticket) => dispatch(receiveTicketStatusUpdate(ticket)));
+    //eslint-disable-next-line
+  }, []);
 
   return (
     <Box className="sideNavbar">
@@ -48,7 +88,7 @@ export function SideNavbar() {
             />
           </Badge>
         </IconButton>
-        <IconButton onClick={handleUnassignedTicketsByAgent}>
+        <IconButton onClick={handleAssignedTicketsByAgent}>
           <Badge
             color="error"
             badgeContent={2}
@@ -58,6 +98,9 @@ export function SideNavbar() {
               horizontal: "right",
             }}
           >
+            <div>
+            <AssignmentIndIcon/>
+            </div>
             <img
               src="../icons/box_icon.svg"
               alt="my box button"
@@ -65,7 +108,7 @@ export function SideNavbar() {
             />
           </Badge>
         </IconButton>
-        <IconButton onClick={handleDoneTicketsByAgent}>
+        <IconButton onClick={handleResolvedTicketsByAgent}>
           <img
             src="../icons/box_icon.svg"
             alt="my box button"

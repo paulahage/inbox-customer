@@ -10,12 +10,14 @@ interface TicketState {
   tickets: Ticket[];
   ticket?: Ticket;
   ticketEvents?: TicketEvents;
+  listView?: string;
 }
 
 const initialState: TicketState = {
   tickets: [],
   ticket: undefined,
   ticketEvents: undefined,
+  listView: undefined,
 };
 
 export const ticketSlice = createSlice({
@@ -41,18 +43,53 @@ export const ticketSlice = createSlice({
       return state;
     },
     receiveNewTicket: (state: TicketState, action: PayloadAction<Ticket>) => {
-      state.tickets.unshift(action.payload);
+      console.log("btn state", state.listView);
+
+      if (state.listView === "unassignedList") {
+        //return { ...state, tickets: [action.payload, ...state.tickets] };
+        state.tickets.unshift(action.payload);
+        return state;
+      }
       return state;
     },
     receiveTicketStatusUpdate: (
       state: TicketState,
       action: PayloadAction<Ticket>
     ) => {
-      const ticketIndex = state.tickets.findIndex(
-        (ticket) => ticket.id === action.payload.id
-      );
-      state.tickets[ticketIndex] = action.payload;
-      return state;
+      if (state.listView === "unassignedList") {
+        if (action.payload.status !== TicketStatus.UNASSIGNED) {
+          state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload.id);
+          return state;
+        }
+      } else if (state.listView === "assignedAgentList" && action.payload.agent?.id === "0") {
+        if (action.payload.status !== TicketStatus.CUSTOMER_WAITING) {
+          state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload.id);
+          return state;
+        }
+      } else if (state.listView === "resolvedAgentList" && action.payload.agent?.id === "0") {
+        if (![TicketStatus.RESOLVED, TicketStatus.WAITING_FOR_CUSTOMER].includes(action.payload.status)) {
+          state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload.id);
+          return state;
+        }
+
+      } else if (state.listView === "resolvedAllList") {
+        if (![TicketStatus.RESOLVED ,TicketStatus.WAITING_FOR_CUSTOMER].includes(action.payload.status)) {
+          state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload.id);
+          return state;
+        }
+      } else {
+        return state;
+      }
+
+      const ticketIndex = state.tickets.findIndex((ticket) => ticket.id === action.payload.id);
+
+      if (ticketIndex !== -1) {
+        state.tickets[ticketIndex] = action.payload;
+        return state;
+      }
+
+      state.tickets.unshift(action.payload)
+      return state ;
     },
     receiveUnassignedTicketList: (
       state: TicketState,
@@ -61,22 +98,27 @@ export const ticketSlice = createSlice({
       state.tickets = action.payload.filter(
         (ticket) => ticket.status === TicketStatus.UNASSIGNED
       );
+      state.ticket = undefined;
       console.log("receive click unassigned list");
       return state;
     },
-    receiveUnassignedTicketListByAgent: (
+    receiveAssignedTicketListByAgent: (
       state: TicketState,
       action: PayloadAction<Ticket[]>
     ) => {
+      console.log("assigned by agent", action.payload);
+
+      state.ticket = undefined;
       state.tickets = action.payload;
       console.log("receive click unassigned list by agent");
       return state;
     },
-    receiveDoneTicketListByAgent: (
+    receiveResolvedTicketListByAgent: (
       state: TicketState,
       action: PayloadAction<Ticket[]>
     ) => {
       state.tickets = action.payload;
+      state.ticket = undefined;
       console.log("receive click done list by agent");
       return state;
     },
@@ -85,21 +127,28 @@ export const ticketSlice = createSlice({
       action: PayloadAction<Ticket[]>
     ) => {
       state.tickets = action.payload;
+      state.ticket = undefined;
       console.log("receive click all done list");
+      return state;
+    },
+    receiveListView: (state: TicketState, action: PayloadAction<string>) => {
+      state.listView = action.payload;
       return state;
     },
   },
 });
 
 export const {
-  //receiveTicketList,
   receiveTicketChat,
   receiveTicketEvents,
   receiveNewTicketEvent,
   receiveUnassignedTicketList,
-  receiveUnassignedTicketListByAgent,
-  receiveDoneTicketListByAgent,
+  receiveAssignedTicketListByAgent,
+  receiveResolvedTicketListByAgent,
   receiveAllResolvedTicketList,
+  receiveListView,
+  receiveNewTicket,
+  receiveTicketStatusUpdate,
 } = ticketSlice.actions;
 
 export const ticketActions = ticketSlice.actions;

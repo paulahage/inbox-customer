@@ -11,19 +11,19 @@ export const getUnassignedTickets = (callBack: (list: Ticket[]) => void) => {
     });
 };
 
-export const getUnassignedTicketsByAgent = (callBack: (list: Ticket[]) => void) => {
+export const getAssignedTicketsByAgent = (callBack: (list: Ticket[]) => void) => {
   fetch(`${URL_BASE}/ticket/byAgent/${agentId}`)
     .then((response) => response.json())
-    .then((unassignedTicketListByAgent: Ticket[]) => {
-      callBack(unassignedTicketListByAgent);
+    .then((assignedTicketListByAgent: Ticket[]) => {
+      callBack(assignedTicketListByAgent);
     });
 };
 
-export const getDoneTicketsByAgent = (callBack: (list: Ticket[]) => void) => {
+export const getResolvedTicketsByAgent = (callBack: (list: Ticket[]) => void) => {
   fetch(`${URL_BASE}/ticket/done/byAgent/${agentId}`)
     .then((response) => response.json())
-    .then((doneTicketListByAgent: Ticket[]) => {
-      callBack(doneTicketListByAgent);
+    .then((resolvedTicketListByAgent: Ticket[]) => {
+      callBack(resolvedTicketListByAgent);
     });
 };
 
