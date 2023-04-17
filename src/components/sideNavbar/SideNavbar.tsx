@@ -1,5 +1,7 @@
 import { Badge, Box, IconButton, Stack } from "@mui/material";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
+import PlaylistAddCheckRoundedIcon from "@mui/icons-material/PlaylistAddCheckRounded";
+import HowToRegRoundedIcon from "@mui/icons-material/HowToRegRounded";
 import "./SideNavbar.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
@@ -98,29 +100,20 @@ export function SideNavbar() {
               horizontal: "right",
             }}
           >
-            <div>
-            <AssignmentIndIcon/>
+            <div className="sideNavbar__agent-btn">
+              <AssignmentIndIcon fontSize="inherit" />
             </div>
-            <img
-              src="../icons/box_icon.svg"
-              alt="my box button"
-              className="sideNavbar__btn"
-            />
           </Badge>
         </IconButton>
         <IconButton onClick={handleResolvedTicketsByAgent}>
-          <img
-            src="../icons/box_icon.svg"
-            alt="my box button"
-            className="sideNavbar__btn"
-          />
+          <div className="sideNavbar__agent-btn">
+            <HowToRegRoundedIcon fontSize="inherit" />
+          </div>
         </IconButton>
         <IconButton onClick={handleAllResolvedTickets}>
-          <img
-            src="../icons/box_icon.svg"
-            alt="my box button"
-            className="sideNavbar__btn"
-          />
+          <div className="sideNavbar__agent-btn">
+            <PlaylistAddCheckRoundedIcon fontSize="inherit" />
+          </div>
         </IconButton>
       </Stack>
     </Box>
