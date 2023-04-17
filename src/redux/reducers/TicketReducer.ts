@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Ticket, TicketEvents, TicketEvent } from "../../apiModels";
+import {
+  Ticket,
+  TicketEvents,
+  TicketEvent,
+  TicketStatus,
+} from "../../apiModels";
 
 interface TicketState {
   tickets: Ticket[];
@@ -17,13 +22,6 @@ export const ticketSlice = createSlice({
   name: "ticket",
   initialState,
   reducers: {
-    receiveTicketList: (
-      state: TicketState,
-      action: PayloadAction<Ticket[]>
-    ) => {
-      state.tickets = action.payload;
-      return state;
-    },
     receiveTicketChat: (state: TicketState, action: PayloadAction<Ticket>) => {
       state.ticket = action.payload;
       return state;
@@ -35,7 +33,10 @@ export const ticketSlice = createSlice({
       state.ticketEvents = action.payload;
       return state;
     },
-    receiveNewTicketEvent: (state: TicketState, action: PayloadAction<TicketEvent>) => {
+    receiveNewTicketEvent: (
+      state: TicketState,
+      action: PayloadAction<TicketEvent>
+    ) => {
       state.ticketEvents?.events.push(action.payload);
       return state;
     },
@@ -53,15 +54,52 @@ export const ticketSlice = createSlice({
       state.tickets[ticketIndex] = action.payload;
       return state;
     },
-
+    receiveUnassignedTicketList: (
+      state: TicketState,
+      action: PayloadAction<Ticket[]>
+    ) => {
+      state.tickets = action.payload.filter(
+        (ticket) => ticket.status === TicketStatus.UNASSIGNED
+      );
+      console.log("receive click unassigned list");
+      return state;
+    },
+    receiveUnassignedTicketListByAgent: (
+      state: TicketState,
+      action: PayloadAction<Ticket[]>
+    ) => {
+      state.tickets = action.payload;
+      console.log("receive click unassigned list by agent");
+      return state;
+    },
+    receiveDoneTicketListByAgent: (
+      state: TicketState,
+      action: PayloadAction<Ticket[]>
+    ) => {
+      state.tickets = action.payload;
+      console.log("receive click done list by agent");
+      return state;
+    },
+    receiveAllResolvedTicketList: (
+      state: TicketState,
+      action: PayloadAction<Ticket[]>
+    ) => {
+      state.tickets = action.payload;
+      console.log("receive click all done list");
+      return state;
+    },
   },
 });
 
 export const {
-  receiveTicketList,
+  //receiveTicketList,
   receiveTicketChat,
   receiveTicketEvents,
   receiveNewTicketEvent,
+  receiveUnassignedTicketList,
+  receiveUnassignedTicketListByAgent,
+  receiveDoneTicketListByAgent,
+  receiveAllResolvedTicketList,
 } = ticketSlice.actions;
 
 export const ticketActions = ticketSlice.actions;
