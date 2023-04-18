@@ -2,7 +2,8 @@ import "./TicketList.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { assignTicket } from "../../services/ApiServices";
 import * as Models from "../../apiModels";
-import { receiveTicketChat} from "../../redux/reducers/TicketReducer";
+import { receiveTicketChat } from "../../redux/reducers/TicketReducer";
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import {
   List,
   ListItem,
@@ -34,6 +35,7 @@ export function TicketList() {
           divider
           alignItems="flex-start"
           onClick={() => dispatch(receiveTicketChat(ticket))}
+          sx={{ backgroundColor: `${ticket.isNewTicket ? "#fad4d4" : ""}` }}
         >
           <Stack sx={{ width: "100%" }}>
             <TicketStatus ticket={ticket} />
@@ -62,12 +64,13 @@ export function TicketList() {
                 <CustomerName customer={ticket.customer} />
               </ListItemText>
               {ticket.status === Models.TicketStatus.UNASSIGNED && (
-                <IconButton onClick={() => handleAssignTicket(ticket.id)}>
-                  <img
-                    src="../icons/Assing_Button.svg"
-                    alt="assign new ticket"
-                    className="ticketList__assing-btn"
-                  />
+                <IconButton
+                  onClick={() => handleAssignTicket(ticket.id)}
+                  sx={{ padding: "0px" }}
+                >
+                  <div className="ticketList__assing-btn">
+                    <PersonAddAltRoundedIcon fontSize="inherit" />
+                  </div>
                 </IconButton>
               )}
             </Stack>

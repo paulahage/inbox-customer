@@ -70,6 +70,7 @@ export interface Ticket {
   status: TicketStatus;
   date: string;
   lastMessage?: string;
+  isNewTicket: boolean;
 }
 
 export interface TicketEvents {

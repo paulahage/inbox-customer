@@ -23,7 +23,8 @@ import {
 import { useEffect } from "react";
 
 export function SideNavbar() {
-  //const tickets = useAppSelector((state) => state.ticket.tickets);
+  const assignedTickets = useAppSelector((state) => state.ticket.assignedTicketByAgentCount);
+  const unassignedTickets = useAppSelector((state) => state.ticket.unassignedTicketsCount);
   const dispatch = useAppDispatch();
 
   const handleUnassignedTickets = () => {
@@ -32,6 +33,7 @@ export function SideNavbar() {
       dispatch(receiveUnassignedTicketList(ticketList))
     );
   };
+
   const handleAssignedTicketsByAgent = () => {
     dispatch(receiveListView("assignedAgentList"));
     getAssignedTicketsByAgent((assignedTicketListByAgent) =>
@@ -58,7 +60,6 @@ export function SideNavbar() {
     } else {
       stopRerender = true;
     }
-    console.log("useEffect ticket list");
 
     getNewTickets((ticket) => dispatch(receiveNewTicket(ticket)));
     getTicketUpdate((ticket) => dispatch(receiveTicketStatusUpdate(ticket)));
@@ -76,7 +77,7 @@ export function SideNavbar() {
         <IconButton onClick={handleUnassignedTickets}>
           <Badge
             color="error"
-            badgeContent={3}
+            badgeContent={unassignedTickets.length}
             overlap="circular"
             anchorOrigin={{
               vertical: "bottom",
@@ -93,7 +94,7 @@ export function SideNavbar() {
         <IconButton onClick={handleAssignedTicketsByAgent}>
           <Badge
             color="error"
-            badgeContent={2}
+            badgeContent={assignedTickets.length}
             overlap="circular"
             anchorOrigin={{
               vertical: "bottom",
