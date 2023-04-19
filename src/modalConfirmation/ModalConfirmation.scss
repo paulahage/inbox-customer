@@ -32,3 +32,19 @@
 .confirm-btn:hover {
   background-color: $confirmation;
 }
+
+.cancel-btn {
+  width: 50px;
+  height: 50px;
+  background-color: #383838;
+  border-radius: 50%;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+}
+
+.cancel-btn:hover {
+  background-color: $cancel;
+}
