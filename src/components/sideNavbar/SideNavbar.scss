@@ -4,12 +4,21 @@
   background-color: $black;
   width: 90px;
   height: 100vh;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
   padding: 10px 0;
 
   &__btn {
     width: 52px;
+  }
+
+  &__agent-btn {
+    width: 52px;
+    height: 52px;
+    background-color: #383838;
+    border-radius: 50%;
+    color: $white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
   }
 }

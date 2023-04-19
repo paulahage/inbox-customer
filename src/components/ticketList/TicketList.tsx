@@ -1,14 +1,8 @@
 import "./TicketList.scss";
-import { useEffect } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
-import { assignTicket, getTickets } from "../../services/ApiServices";
+import { assignTicket } from "../../services/ApiServices";
 import * as Models from "../../apiModels";
-import {
-  receiveTicketList,
-  receiveTicketChat,
-  ticketActions,
-} from "../../redux/reducers/TicketReducer";
+import { receiveTicketChat} from "../../redux/reducers/TicketReducer";
 import {
   List,
   ListItem,
@@ -27,23 +21,9 @@ export function TicketList() {
   const tickets = useAppSelector((state) => state.ticket.tickets);
   const dispatch = useAppDispatch();
 
-  const handleAssingTicket = (ticketId: string) => {
+  const handleAssignTicket = (ticketId: string) => {
     assignTicket(ticketId);
-  }
-
-  let stopRerender = false;
-  useEffect(() => {
-    if (stopRerender) {
-      return;
-    } else {
-      stopRerender = true;
-    }
-
-    getTickets((ticketList) => dispatch(receiveTicketList(ticketList)));
-    getNewTickets((ticket) => dispatch(ticketActions.receiveNewTicket(ticket)));
-    getTicketUpdate((ticket) => dispatch(ticketActions.receiveTicketStatusUpdate(ticket)));
-    //eslint-disable-next-line
-  }, []);
+  };
 
   return (
     <List className="ticketList" disablePadding>
@@ -82,7 +62,7 @@ export function TicketList() {
                 <CustomerName customer={ticket.customer} />
               </ListItemText>
               {ticket.status === Models.TicketStatus.UNASSIGNED && (
-                <IconButton onClick={()=> handleAssingTicket(ticket.id)}>
+                <IconButton onClick={() => handleAssignTicket(ticket.id)}>
                   <img
                     src="../icons/Assing_Button.svg"
                     alt="assign new ticket"
