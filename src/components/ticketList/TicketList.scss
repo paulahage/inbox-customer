@@ -32,6 +32,15 @@
     background-color: $grey-bg;
   }
 
+  &__ticket-new-ticket {
+    background-color: $new-ticket-notification;
+    cursor: pointer;
+  }
+
+  &__ticket-new-ticket:hover {
+    background-color: $new-ticket-notification-hover;
+  }
+
   &__assing-btn {
     width: 40px;
     height: 40px;

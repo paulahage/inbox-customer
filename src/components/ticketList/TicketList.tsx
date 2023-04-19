@@ -22,7 +22,7 @@ export function TicketList() {
   const tickets = useAppSelector((state) => state.ticket.tickets);
   const dispatch = useAppDispatch();
 
-  const handleAssignTicket = (ticketId: string) => {
+  const handleAssignTicket = ( ticketId: string ) => {
     assignTicket(ticketId);
   };
 
@@ -31,11 +31,10 @@ export function TicketList() {
       {tickets.map((ticket: Models.Ticket) => (
         <ListItem
           key={ticket.id}
-          className="ticketList__ticket"
+          className={`${ticket.isNewTicket ? "ticketList__ticket-new-ticket" :"ticketList__ticket"}`}
           divider
           alignItems="flex-start"
           onClick={() => dispatch(receiveTicketChat(ticket))}
-          sx={{ backgroundColor: `${ticket.isNewTicket ? "#fad4d4" : ""}` }}
         >
           <Stack sx={{ width: "100%" }}>
             <TicketStatus ticket={ticket} />
@@ -66,7 +65,7 @@ export function TicketList() {
               {ticket.status === Models.TicketStatus.UNASSIGNED && (
                 <IconButton
                   onClick={() => handleAssignTicket(ticket.id)}
-                  sx={{ padding: "0px" }}
+                  sx={{  padding: "0px" }}
                 >
                   <div className="ticketList__assing-btn">
                     <PersonAddAltRoundedIcon fontSize="inherit" />
