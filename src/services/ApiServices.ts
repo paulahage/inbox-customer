@@ -32,7 +32,7 @@ export const getAllResolvedTickets = (callBack: (list: Ticket[]) => void) => {
     .then((response) => response.json())
     .then((allResolvedTicketList: Ticket[]) => {
       callBack(allResolvedTicketList);
-  })
+    });
 };
 
 export const assignTicket = (ticketId: string) => {
@@ -55,4 +55,15 @@ export const sendAgentMessage = (ticketId: string, message: string) => {
   }).then((response) => response);
 };
 
+export const reAssignTicket = (ticketId: string) => {
+  fetch(`${URL_BASE}/ticket/${ticketId}/assign/${agentId}`, {
+    method: "POST",
+  }).then((response) => console.log('response',response)
+  );
+};
 
+export const resolvedTicket = (ticketId: string) => {
+  fetch(`${URL_BASE}/ticket/${ticketId}/resolve/${agentId}`, {
+    method: "POST",
+  }).then((response) => console.log("response", response));
+};
