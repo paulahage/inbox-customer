@@ -71,6 +71,7 @@ export const ticketSlice = createSlice({
       if (state.listView === "unassignedList") {
         if (action.payload.status !== TicketStatus.UNASSIGNED) {
           state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload.id);
+          state.unassignedTicketsCount = state.unassignedTicketsCount.filter((ticket) => ticket.id !== action.payload.id);
           return state;
         }
       } else if (state.listView === "assignedAgentList" && action.payload.agent?.id === "0") {
