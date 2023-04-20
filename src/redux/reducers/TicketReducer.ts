@@ -28,13 +28,16 @@ export const ticketSlice = createSlice({
   initialState,
   reducers: {
     receiveTicketChat: (state: TicketState, action: PayloadAction<Ticket>) => {
-      if (state.listView === "unassignedList") {
         if (Object.hasOwn(action.payload,'isNewTicket')) {
           const ticketNotificationIndex = state.tickets.findIndex((ticket) => ticket.id === action.payload.id);
-          state.tickets[ticketNotificationIndex] = {...action.payload,isNewTicket: false};
-          state.unassignedTicketsCount = state.unassignedTicketsCount.filter((ticket) => ticket.id !== action.payload.id);
+          state.tickets[ticketNotificationIndex] = { ...action.payload, isNewTicket: false };
+          if (state.listView === "unassignedList") {
+            state.unassignedTicketsCount = state.unassignedTicketsCount.filter((ticket) => ticket.id !== action.payload.id);
+          }
+          if (state.listView === "assignedAgentList" && action.payload.agent?.id === "0") {
+            state.assignedTicketByAgentCount = state.assignedTicketByAgentCount.filter((ticket) => ticket.id !== action.payload.id);
+          }
         }
-      }
       state.ticket = action.payload;
       return state;
     },
