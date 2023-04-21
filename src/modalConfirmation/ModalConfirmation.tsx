@@ -34,7 +34,7 @@ export default function ModalConfirmation({ ticket, openModal, handleCloseModal,
           fontSize={15}
         >
           {typeButton === "reAssign"
-            ? "Are you sure to re-assign this ticket to yourself?"
+            ? "Are you sure to assign this ticket to yourself?"
             : "Are your sure to close this ticket and mark it as resolved?"}
         </Typography>
         {typeButton === "reAssign" ? (
