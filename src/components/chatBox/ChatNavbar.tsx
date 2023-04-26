@@ -68,7 +68,7 @@ export default function ChatNavbar({ ticket }: Props) {
           className="chatNavbar__re-assign-btn"
           onClick={() => handleOpenModal("reAssign")}
         >
-          Re-Assign
+          Assign
         </Button>
         <ModalConfirmation
           openModal={openModal}
