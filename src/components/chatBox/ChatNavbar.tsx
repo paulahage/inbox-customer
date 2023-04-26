@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./ChatNavbar.scss";
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
-import { Stack, Button, Typography} from "@mui/material";
+import { Stack, Button, Typography } from "@mui/material";
 import { Ticket } from "../../apiModels";
 import ModalConfirmation from "../../modalConfirmation/ModalConfirmation";
 interface Props {
@@ -13,10 +13,12 @@ export default function ChatNavbar({ ticket }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const [typeButton, setTypeButton] = useState("");
 
+  const agentId = "0";
+
   const handleOpenModal = (typeButton: string) => {
     setTypeButton(typeButton);
     setOpenModal(true);
-  }
+  };
 
   const handleCloseModal = () => setOpenModal(false);
 
@@ -60,16 +62,30 @@ export default function ChatNavbar({ ticket }: Props) {
         alignItems="center"
         paddingRight={"15px"}
       >
-        <Button
-          variant="contained"
-          size="medium"
-          color="secondary"
-          sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
-          className="chatNavbar__re-assign-btn"
-          onClick={() => handleOpenModal("reAssign")}
-        >
-          Assign
-        </Button>
+        {ticket.agent?.id === agentId ? (
+          <Button
+            disabled
+            variant="contained"
+            size="medium"
+            color="secondary"
+            sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
+            className="chatNavbar__re-assign-btn"
+            onClick={() => handleOpenModal("reAssign")}
+          >
+            Assign
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            size="medium"
+            color="secondary"
+            sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
+            className="chatNavbar__re-assign-btn"
+            onClick={() => handleOpenModal("reAssign")}
+          >
+            Assign
+          </Button>
+        )}
         <ModalConfirmation
           openModal={openModal}
           handleCloseModal={handleCloseModal}
