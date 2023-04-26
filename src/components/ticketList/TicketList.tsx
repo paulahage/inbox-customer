@@ -2,7 +2,8 @@ import "./TicketList.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { assignTicket } from "../../services/ApiServices";
 import * as Models from "../../apiModels";
-import { receiveTicketChat} from "../../redux/reducers/TicketReducer";
+import { receiveTicketChat } from "../../redux/reducers/TicketReducer";
+import PersonAddAltRoundedIcon from "@mui/icons-material/PersonAddAltRounded";
 import {
   List,
   ListItem,
@@ -21,7 +22,7 @@ export function TicketList() {
   const tickets = useAppSelector((state) => state.ticket.tickets);
   const dispatch = useAppDispatch();
 
-  const handleAssignTicket = (ticketId: string) => {
+  const handleAssignTicket = ( ticketId: string ) => {
     assignTicket(ticketId);
   };
 
@@ -30,7 +31,7 @@ export function TicketList() {
       {tickets.map((ticket: Models.Ticket) => (
         <ListItem
           key={ticket.id}
-          className="ticketList__ticket"
+          className={`${ticket.isNewTicket ? "ticketList__ticket-new-ticket" :"ticketList__ticket"}`}
           divider
           alignItems="flex-start"
           onClick={() => dispatch(receiveTicketChat(ticket))}
@@ -62,12 +63,13 @@ export function TicketList() {
                 <CustomerName customer={ticket.customer} />
               </ListItemText>
               {ticket.status === Models.TicketStatus.UNASSIGNED && (
-                <IconButton onClick={() => handleAssignTicket(ticket.id)}>
-                  <img
-                    src="../icons/Assing_Button.svg"
-                    alt="assign new ticket"
-                    className="ticketList__assing-btn"
-                  />
+                <IconButton
+                  onClick={() => handleAssignTicket(ticket.id)}
+                  sx={{  padding: "0px" }}
+                >
+                  <div className="ticketList__assing-btn">
+                    <PersonAddAltRoundedIcon fontSize="inherit" />
+                  </div>
                 </IconButton>
               )}
             </Stack>

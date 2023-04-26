@@ -5,12 +5,13 @@ import {
   TicketEvent,
   TicketStatus,
 } from "../../apiModels";
-
 interface TicketState {
   tickets: Ticket[];
   ticket?: Ticket;
   ticketEvents?: TicketEvents;
   listView?: string;
+  unassignedTicketsCount: Ticket[];
+  assignedTicketByAgentCount: Ticket[];
 }
 
 const initialState: TicketState = {
@@ -18,6 +19,8 @@ const initialState: TicketState = {
   ticket: undefined,
   ticketEvents: undefined,
   listView: undefined,
+  unassignedTicketsCount: [],
+  assignedTicketByAgentCount: [],
 };
 
 export const ticketSlice = createSlice({
@@ -25,6 +28,13 @@ export const ticketSlice = createSlice({
   initialState,
   reducers: {
     receiveTicketChat: (state: TicketState, action: PayloadAction<Ticket>) => {
+      if (state.listView === "unassignedList") {
+        if (Object.hasOwn(action.payload,'isNewTicket')) {
+          const ticketNotificationIndex = state.tickets.findIndex((ticket) => ticket.id === action.payload.id);
+          state.tickets[ticketNotificationIndex] = {...action.payload,isNewTicket: false};
+          state.unassignedTicketsCount = state.unassignedTicketsCount.filter((ticket) => ticket.id !== action.payload.id);
+        }
+      }
       state.ticket = action.payload;
       return state;
     },
@@ -43,11 +53,9 @@ export const ticketSlice = createSlice({
       return state;
     },
     receiveNewTicket: (state: TicketState, action: PayloadAction<Ticket>) => {
-      console.log("btn state", state.listView);
-
+      state.unassignedTicketsCount.push(action.payload);
       if (state.listView === "unassignedList") {
-        //return { ...state, tickets: [action.payload, ...state.tickets] };
-        state.tickets.unshift(action.payload);
+        state.tickets.unshift({ ...action.payload, isNewTicket: true });
         return state;
       }
       return state;
@@ -56,6 +64,10 @@ export const ticketSlice = createSlice({
       state: TicketState,
       action: PayloadAction<Ticket>
     ) => {
+      if (action.payload.status === TicketStatus.CUSTOMER_WAITING && action.payload.agent?.id === "0") {
+        state.assignedTicketByAgentCount.push(action.payload);
+      }
+
       if (state.listView === "unassignedList") {
         if (action.payload.status !== TicketStatus.UNASSIGNED) {
           state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload.id);
@@ -71,7 +83,6 @@ export const ticketSlice = createSlice({
           state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload.id);
           return state;
         }
-
       } else if (state.listView === "resolvedAllList") {
         if (![TicketStatus.RESOLVED ,TicketStatus.WAITING_FOR_CUSTOMER].includes(action.payload.status)) {
           state.tickets = state.tickets.filter((ticket) => ticket.id !== action.payload.id);
@@ -88,29 +99,25 @@ export const ticketSlice = createSlice({
         return state;
       }
 
-      state.tickets.unshift(action.payload)
-      return state ;
+      state.tickets.unshift({ ...action.payload, isNewTicket: true });
+      return state;
     },
     receiveUnassignedTicketList: (
       state: TicketState,
       action: PayloadAction<Ticket[]>
     ) => {
-      state.tickets = action.payload.filter(
-        (ticket) => ticket.status === TicketStatus.UNASSIGNED
-      );
+      state.tickets = action.payload.filter((ticket) => ticket.status === TicketStatus.UNASSIGNED );
+      state.unassignedTicketsCount = [];
       state.ticket = undefined;
-      console.log("receive click unassigned list");
       return state;
     },
     receiveAssignedTicketListByAgent: (
       state: TicketState,
       action: PayloadAction<Ticket[]>
     ) => {
-      console.log("assigned by agent", action.payload);
-
       state.ticket = undefined;
       state.tickets = action.payload;
-      console.log("receive click unassigned list by agent");
+      state.assignedTicketByAgentCount = [];
       return state;
     },
     receiveResolvedTicketListByAgent: (
@@ -119,7 +126,6 @@ export const ticketSlice = createSlice({
     ) => {
       state.tickets = action.payload;
       state.ticket = undefined;
-      console.log("receive click done list by agent");
       return state;
     },
     receiveAllResolvedTicketList: (
@@ -128,7 +134,6 @@ export const ticketSlice = createSlice({
     ) => {
       state.tickets = action.payload;
       state.ticket = undefined;
-      console.log("receive click all done list");
       return state;
     },
     receiveListView: (state: TicketState, action: PayloadAction<string>) => {
