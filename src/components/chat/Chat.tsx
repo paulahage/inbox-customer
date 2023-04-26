@@ -15,7 +15,7 @@ import {
   TicketEventStatusChange,
   TicketEventType,
 } from "../../apiModels";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { receiveTicketEvents } from "../../redux/reducers/TicketReducer";
 interface Props {
   ticket: Ticket;
@@ -25,6 +25,7 @@ export default function Chat({ ticket }: Props) {
   const ticketEvents = useAppSelector((state) => state.ticket.ticketEvents);
   const dispatch = useAppDispatch();
   const url = `${URL_GET_TICKETS}/${ticket.id}/events`;
+  const chatRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     fetch(url)
@@ -33,6 +34,17 @@ export default function Chat({ ticket }: Props) {
     //eslint-disable-next-line
   }, [ticket.id]);
 
+  useEffect(() => {
+    if (chatRef.current) {
+      const element = chatRef.current;
+      element.scroll({
+        top: element.scrollHeight,
+        left: 0,
+        behavior: "smooth",
+      });
+    }
+  }, [ticketEvents]);
+
   return (
     <Stack
       direction="column"
@@ -40,7 +52,7 @@ export default function Chat({ ticket }: Props) {
       alignItems="flex-start"
       sx={{ width: "100%" }}
     >
-      <Box className="chat">
+      <Box className="chat" ref={chatRef}>
         {ticketEvents?.events.map((message: TicketEvent) => {
           if (message.eventType === TicketEventType.CUSTOMER_MESSAGE) {
             return (
