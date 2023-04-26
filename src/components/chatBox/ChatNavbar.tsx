@@ -1,13 +1,25 @@
+import { useState } from "react";
 import "./ChatNavbar.scss";
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
-import { Stack, Button, Typography } from "@mui/material";
+import { Stack, Button, Typography} from "@mui/material";
 import { Ticket } from "../../apiModels";
+import ModalConfirmation from "../../modalConfirmation/ModalConfirmation";
 interface Props {
   ticket: Ticket;
 }
 
 export default function ChatNavbar({ ticket }: Props) {
+  const [openModal, setOpenModal] = useState(false);
+  const [typeButton, setTypeButton] = useState("");
+
+  const handleOpenModal = (typeButton: string) => {
+    setTypeButton(typeButton);
+    setOpenModal(true);
+  }
+
+  const handleCloseModal = () => setOpenModal(false);
+
   return (
     <Stack
       direction="row"
@@ -34,7 +46,11 @@ export default function ChatNavbar({ ticket }: Props) {
             >
               typing
             </Typography>
-            <img src="../icons/typing.gif" alt="customer typing" className="chatNavbar__loading_typing"/>
+            <img
+              src="../icons/typing.gif"
+              alt="customer typing"
+              className="chatNavbar__loading_typing"
+            />
           </Stack>
         </Stack>
       </Stack>
@@ -50,17 +66,31 @@ export default function ChatNavbar({ ticket }: Props) {
           color="secondary"
           sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
           className="chatNavbar__re-assign-btn"
+          onClick={() => handleOpenModal("reAssign")}
         >
           Re-Assign
         </Button>
+        <ModalConfirmation
+          openModal={openModal}
+          handleCloseModal={handleCloseModal}
+          typeButton={typeButton}
+          ticket={ticket}
+        />
         <Button
           variant="contained"
           size="medium"
           color="secondary"
           sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
+          onClick={() => handleOpenModal("resolvedButton")}
         >
           Resolve
         </Button>
+        <ModalConfirmation
+          openModal={openModal}
+          handleCloseModal={handleCloseModal}
+          typeButton={typeButton}
+          ticket={ticket}
+        />
       </Stack>
     </Stack>
   );

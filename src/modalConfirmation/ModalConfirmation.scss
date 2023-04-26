@@ -1,0 +1,50 @@
+@import "../App.scss";
+
+.modal__msg-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 200px;
+  background-color: $white;
+  border-radius: 5px;
+  box-shadow: 24;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.confirm-btn {
+  width: 50px;
+  height: 50px;
+  background-color: #383838;
+  border-radius: 50%;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+}
+
+.confirm-btn:hover {
+  background-color: $confirmation;
+}
+
+.cancel-btn {
+  width: 50px;
+  height: 50px;
+  background-color: #383838;
+  border-radius: 50%;
+  color: $white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+}
+
+.cancel-btn:hover {
+  background-color: $cancel;
+}

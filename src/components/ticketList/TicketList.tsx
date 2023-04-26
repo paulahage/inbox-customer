@@ -65,7 +65,7 @@ export function TicketList() {
               {ticket.status === Models.TicketStatus.UNASSIGNED && (
                 <IconButton
                   onClick={() => handleAssignTicket(ticket.id)}
-                  sx={{  padding: "0px" }}
+                  sx={{  margin: "5px" }}
                 >
                   <div className="ticketList__assing-btn">
                     <PersonAddAltRoundedIcon fontSize="inherit" />
