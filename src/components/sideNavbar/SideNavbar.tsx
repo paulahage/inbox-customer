@@ -1,11 +1,12 @@
+import { useEffect, useState } from "react";
+import { useAppSelector, useAppDispatch } from "../../redux/hooks";
+import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
+import "./SideNavbar.scss";
 import { Badge, Box, IconButton, Stack } from "@mui/material";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import PlaylistAddCheckRoundedIcon from "@mui/icons-material/PlaylistAddCheckRounded";
 import AllInboxRoundedIcon from "@mui/icons-material/AllInboxRounded";
 import HowToRegRoundedIcon from "@mui/icons-material/HowToRegRounded";
-import "./SideNavbar.scss";
-import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
 import {
   receiveUnassignedTicketList,
   receiveAssignedTicketListByAgent,
@@ -21,11 +22,14 @@ import {
   getResolvedTicketsByAgent,
   getAllResolvedTickets,
 } from "../../services/ApiServices";
-import { useEffect, useState } from "react";
 
 export function SideNavbar() {
-  const assignedTickets = useAppSelector((state) => state.ticket.assignedTicketByAgentCount);
-  const unassignedTickets = useAppSelector((state) => state.ticket.unassignedTicketsCount);
+  const assignedTickets = useAppSelector(
+    (state) => state.ticket.assignedTicketByAgentCount
+  );
+  const unassignedTickets = useAppSelector(
+    (state) => state.ticket.unassignedTicketsCount
+  );
   const dispatch = useAppDispatch();
 
   const [isBtnActive, setIsBtnActive] = useState("");
@@ -38,7 +42,7 @@ export function SideNavbar() {
     );
   };
 
-  const handleAssignedTicketsByAgent = (typeBtn:string) => {
+  const handleAssignedTicketsByAgent = (typeBtn: string) => {
     setIsBtnActive(typeBtn);
     dispatch(receiveListView("assignedAgentList"));
     getAssignedTicketsByAgent((assignedTicketListByAgent) =>
