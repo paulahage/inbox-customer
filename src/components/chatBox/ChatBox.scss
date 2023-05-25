@@ -9,14 +9,6 @@
   flex-direction: column;
   align-items: flex-start;
 
-  .chatBox__button {
-    background-color: $button-color;
-    width: 80px;
-    height: 30px;
-    border-radius: 50px;
-    font-size: 14px;
-  }
-
   &__loader {
     width: 800px;
     background-color: $grey-bg;

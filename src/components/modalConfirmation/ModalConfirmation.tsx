@@ -1,10 +1,10 @@
 import { Typography, Modal, Box, IconButton, Stack } from "@mui/material";
-import { Ticket } from "../apiModels";
+import { Ticket } from "../../apiModels";
 import "./ModalConfirmation.scss";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { reAssignTicket, resolvedTicket } from '../services/ApiServices';
+import { reAssignTicket, resolvedTicket } from "../../services/ApiServices";
 interface Props {
   ticket: Ticket;
   openModal: any;
@@ -12,16 +12,21 @@ interface Props {
   typeButton: string;
 }
 
-export default function ModalConfirmation({ ticket, openModal, handleCloseModal, typeButton }: Props) {
+export default function ModalConfirmation({
+  ticket,
+  openModal,
+  handleCloseModal,
+  typeButton,
+}: Props) {
   const handleReAssignTicket = () => {
     reAssignTicket(ticket.id);
     handleCloseModal();
-  }
+  };
 
   const handleResolvedTicket = () => {
     resolvedTicket(ticket.id);
     handleCloseModal();
-  }
+  };
 
   return (
     <Modal open={openModal} onClose={handleCloseModal}>
@@ -68,4 +73,3 @@ export default function ModalConfirmation({ ticket, openModal, handleCloseModal,
     </Modal>
   );
 }
-
