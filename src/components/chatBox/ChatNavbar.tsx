@@ -4,7 +4,7 @@ import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
 import { Stack, Button, Typography } from "@mui/material";
 import { Ticket } from "../../apiModels";
-import ModalConfirmation from "../../modalConfirmation/ModalConfirmation";
+import ModalConfirmation from "../modalConfirmation/ModalConfirmation";
 interface Props {
   ticket: Ticket;
 }
