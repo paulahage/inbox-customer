@@ -1,6 +1,7 @@
 import { Badge, Box, IconButton, Stack } from "@mui/material";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import PlaylistAddCheckRoundedIcon from "@mui/icons-material/PlaylistAddCheckRounded";
+import AllInboxRoundedIcon from "@mui/icons-material/AllInboxRounded";
 import HowToRegRoundedIcon from "@mui/icons-material/HowToRegRounded";
 import "./SideNavbar.scss";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
@@ -20,40 +21,49 @@ import {
   getResolvedTicketsByAgent,
   getAllResolvedTickets,
 } from "../../services/ApiServices";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export function SideNavbar() {
   const assignedTickets = useAppSelector((state) => state.ticket.assignedTicketByAgentCount);
   const unassignedTickets = useAppSelector((state) => state.ticket.unassignedTicketsCount);
   const dispatch = useAppDispatch();
 
-  const handleUnassignedTickets = () => {
+  const [isBtnActive, setIsBtnActive] = useState("");
+
+  const handleUnassignedTickets = (typeBtn: string) => {
+    setIsBtnActive(typeBtn);
     dispatch(receiveListView("unassignedList"));
     getUnassignedTickets((ticketList) =>
       dispatch(receiveUnassignedTicketList(ticketList))
     );
   };
 
-  const handleAssignedTicketsByAgent = () => {
+  const handleAssignedTicketsByAgent = (typeBtn:string) => {
+    setIsBtnActive(typeBtn);
     dispatch(receiveListView("assignedAgentList"));
     getAssignedTicketsByAgent((assignedTicketListByAgent) =>
       dispatch(receiveAssignedTicketListByAgent(assignedTicketListByAgent))
     );
-  }
-  const handleResolvedTicketsByAgent = () => {
+  };
+
+  const handleResolvedTicketsByAgent = (typeBtn: string) => {
+    setIsBtnActive(typeBtn);
     dispatch(receiveListView("resolvedAgentList"));
     getResolvedTicketsByAgent((resolvedTicketListByAgent) =>
       dispatch(receiveResolvedTicketListByAgent(resolvedTicketListByAgent))
     );
-  }
-  const handleAllResolvedTickets = () => {
+  };
+
+  const handleAllResolvedTickets = (typeBtn: string) => {
+    setIsBtnActive(typeBtn);
     dispatch(receiveListView("resolvedAllList"));
     getAllResolvedTickets((allResolvedTicketList) =>
       dispatch(receiveAllResolvedTicketList(allResolvedTicketList))
     );
-  }
+  };
 
   let stopRerender = false;
+
   useEffect(() => {
     if (stopRerender) {
       return;
@@ -63,6 +73,7 @@ export function SideNavbar() {
 
     getNewTickets((ticket) => dispatch(receiveNewTicket(ticket)));
     getTicketUpdate((ticket) => dispatch(receiveTicketStatusUpdate(ticket)));
+    handleUnassignedTickets("unassignedBtn");
     //eslint-disable-next-line
   }, []);
 
@@ -74,7 +85,7 @@ export function SideNavbar() {
         alignItems="center"
         spacing={2}
       >
-        <IconButton onClick={handleUnassignedTickets}>
+        <IconButton onClick={() => handleUnassignedTickets("unassignedBtn")}>
           <Badge
             color="error"
             badgeContent={unassignedTickets.length}
@@ -84,14 +95,18 @@ export function SideNavbar() {
               horizontal: "right",
             }}
           >
-            <img
-              src="../icons/box_icon.svg"
-              alt="my box button"
-              className="sideNavbar__btn"
-            />
+            <div
+              className={
+                isBtnActive === "unassignedBtn"
+                  ? "sideNavbar__btn-active"
+                  : "sideNavbar__btn"
+              }
+            >
+              <AllInboxRoundedIcon fontSize="inherit" />
+            </div>
           </Badge>
         </IconButton>
-        <IconButton onClick={handleAssignedTicketsByAgent}>
+        <IconButton onClick={() => handleAssignedTicketsByAgent("assignedBtn")}>
           <Badge
             color="error"
             badgeContent={assignedTickets.length}
@@ -101,18 +116,36 @@ export function SideNavbar() {
               horizontal: "right",
             }}
           >
-            <div className="sideNavbar__agent-btn">
+            <div
+              className={
+                isBtnActive === "assignedBtn"
+                  ? "sideNavbar__btn-active"
+                  : "sideNavbar__btn"
+              }
+            >
               <AssignmentIndIcon fontSize="inherit" />
             </div>
           </Badge>
         </IconButton>
-        <IconButton onClick={handleResolvedTicketsByAgent}>
-          <div className="sideNavbar__agent-btn">
+        <IconButton onClick={() => handleResolvedTicketsByAgent("waitingBtn")}>
+          <div
+            className={
+              isBtnActive === "waitingBtn"
+                ? "sideNavbar__btn-active"
+                : "sideNavbar__btn"
+            }
+          >
             <HowToRegRoundedIcon fontSize="inherit" />
           </div>
         </IconButton>
-        <IconButton onClick={handleAllResolvedTickets}>
-          <div className="sideNavbar__agent-btn">
+        <IconButton onClick={() => handleAllResolvedTickets("resolvedBtn")}>
+          <div
+            className={
+              isBtnActive === "resolvedBtn"
+                ? "sideNavbar__btn-active"
+                : "sideNavbar__btn"
+            }
+          >
             <PlaylistAddCheckRoundedIcon fontSize="inherit" />
           </div>
         </IconButton>
