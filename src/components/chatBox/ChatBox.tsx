@@ -30,7 +30,7 @@ export default function ChatBox() {
   ) : (
     <Box className="chatBox__loader">
       <Typography variant="subtitle1" sx={{ color: "#918f8f" }}>
-        No messages yet
+        Choose a ticket from the list
       </Typography>
     </Box>
   );

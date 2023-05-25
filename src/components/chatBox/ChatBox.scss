@@ -1,7 +1,7 @@
 @import "../../App.scss";
 
 .chatBox {
-  width: 800px;
+  width: 100%;
   min-width: 500px;
   background-color: $grey-bg;
   padding: 15px;
@@ -10,7 +10,7 @@
   align-items: flex-start;
 
   &__loader {
-    width: 800px;
+    width: 100%;
     background-color: $grey-bg;
     padding: 15px;
     display: flex;
