@@ -56,3 +56,4 @@ $ npm start
 <br/>
 
 💻 Result: (in progress) [Inbox Customer](http://website-inbox.s3-website.eu-north-1.amazonaws.com/)
+![mockup_inbox](https://github.com/paulahage/inbox-customer/assets/84124999/666d4b30-f598-413c-b089-3183d6304ead)
