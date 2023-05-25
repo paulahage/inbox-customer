@@ -55,4 +55,4 @@ $ npm start
 
 <br/>
 
-💻 Result: [Inbox Customer](http://website-inbox.s3-website.eu-north-1.amazonaws.com/)
+💻 Result: (in progress) [Inbox Customer](http://website-inbox.s3-website.eu-north-1.amazonaws.com/)
