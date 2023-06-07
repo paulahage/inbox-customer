@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
 import "./SideNavbar.scss";
-import { Badge, Box, IconButton, Stack, Tooltip } from "@mui/material";
+import { Badge, Box, IconButton, Stack, Tooltip, Fade } from "@mui/material";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import PlaylistAddCheckRoundedIcon from "@mui/icons-material/PlaylistAddCheckRounded";
 import AllInboxRoundedIcon from "@mui/icons-material/AllInboxRounded";
@@ -106,7 +106,13 @@ export function SideNavbar() {
                   : "sideNavbar__btn"
               }
             >
-              <Tooltip title="New tickets" placement="bottom" arrow>
+              <Tooltip
+                title="New tickets"
+                placement="bottom"
+                arrow
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+              >
                 <AllInboxRoundedIcon fontSize="inherit" />
               </Tooltip>
             </div>
@@ -129,7 +135,13 @@ export function SideNavbar() {
                   : "sideNavbar__btn"
               }
             >
-              <Tooltip title="Your assigned tickets" placement="bottom" arrow>
+              <Tooltip
+                title="Your assigned tickets"
+                placement="bottom"
+                arrow
+                TransitionComponent={Fade}
+                TransitionProps={{ timeout: 600 }}
+              >
                 <AssignmentIndIcon fontSize="inherit" />
               </Tooltip>
             </div>
@@ -143,7 +155,13 @@ export function SideNavbar() {
                 : "sideNavbar__btn"
             }
           >
-            <Tooltip title="Your resolved tickets" placement="bottom" arrow>
+            <Tooltip
+              title="Your resolved tickets"
+              placement="bottom"
+              arrow
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+            >
               <HowToRegRoundedIcon fontSize="inherit" />
             </Tooltip>
           </div>
@@ -156,7 +174,13 @@ export function SideNavbar() {
                 : "sideNavbar__btn"
             }
           >
-            <Tooltip title="All resolved tickets" placement="bottom" arrow>
+            <Tooltip
+              title="All resolved tickets"
+              placement="bottom"
+              arrow
+              TransitionComponent={Fade}
+              TransitionProps={{ timeout: 600 }}
+            >
               <PlaylistAddCheckRoundedIcon fontSize="inherit" />
             </Tooltip>
           </div>
