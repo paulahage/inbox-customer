@@ -8,6 +8,7 @@ import ChatInput from "./ChatInput";
 import { useEffect } from "react";
 import { listenChatRoom } from "../../services/TicketsServices";
 import { TicketEvent } from "../../apiModels";
+import { stopListeningChatRoom } from "../../services/TicketsServices";
 
 export default function ChatBox() {
   const ticket = useAppSelector((state) => state.ticket.ticket);
@@ -15,9 +16,15 @@ export default function ChatBox() {
 
   useEffect(() => {
     if (ticket) {
-      listenChatRoom(ticket.id, (event: TicketEvent) => {
+      const callback = (event: TicketEvent) => {
         dispatch(receiveNewTicketEvent(event));
-      });
+      };
+
+      listenChatRoom(ticket.id, callback);
+
+      return () => {
+        stopListeningChatRoom(callback);
+      };
     }
   }, [ticket]);
 

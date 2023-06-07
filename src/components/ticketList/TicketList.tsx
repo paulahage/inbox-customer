@@ -23,7 +23,7 @@ export function TicketList() {
   const listView = useAppSelector((state) => state.ticket.listView);
   const dispatch = useAppDispatch();
 
-  const handleAssignTicket = ( ticketId: string ) => {
+  const handleAssignTicket = (ticketId: string) => {
     assignTicket(ticketId);
   };
 
@@ -92,60 +92,60 @@ export function TicketList() {
       </Stack>
     );
   }
-    return (
-      <List className="ticketList" disablePadding>
-        {tickets.map((ticket: Models.Ticket) => (
-          <ListItem
-            key={ticket.id}
-            className={`${
-              ticket.isNewTicket
-                ? "ticketList__ticket-new-ticket"
-                : "ticketList__ticket"
-            }`}
-            divider
-            alignItems="flex-start"
-            onClick={() => dispatch(receiveTicketChat(ticket))}
-          >
-            <Stack sx={{ width: "100%" }}>
-              <TicketStatus ticket={ticket} />
-              <Stack
-                direction="row"
-                justifyContent="flex-start"
-                alignItems="center"
-                sx={{ width: "100%" }}
-              >
-                <ListItemAvatar>
-                  <Customer customer={ticket.customer} />
-                </ListItemAvatar>
-                <ListItemText
-                  className="ticketList__text"
-                  secondary={
-                    <Typography
-                      variant="subtitle2"
-                      noWrap
-                      fontSize={13}
-                      marginTop={1}
-                    >
-                      {ticket.lastMessage}
-                    </Typography>
-                  }
-                >
-                  <CustomerName customer={ticket.customer} />
-                </ListItemText>
-                {ticket.status === Models.TicketStatus.UNASSIGNED && (
-                  <IconButton
-                    onClick={() => handleAssignTicket(ticket.id)}
-                    sx={{ margin: "5px" }}
+  return (
+    <List className="ticketList" disablePadding>
+      {tickets.map((ticket: Models.Ticket) => (
+        <ListItem
+          key={ticket.id}
+          className={`${
+            ticket.isNewTicket
+              ? "ticketList__ticket-new-ticket"
+              : "ticketList__ticket"
+          }`}
+          divider
+          alignItems="flex-start"
+          onClick={() => dispatch(receiveTicketChat(ticket))}
+        >
+          <Stack sx={{ width: "100%" }}>
+            <TicketStatus ticket={ticket} />
+            <Stack
+              direction="row"
+              justifyContent="flex-start"
+              alignItems="center"
+              sx={{ width: "100%" }}
+            >
+              <ListItemAvatar>
+                <Customer customer={ticket.customer} />
+              </ListItemAvatar>
+              <ListItemText
+                className="ticketList__text"
+                secondary={
+                  <Typography
+                    variant="subtitle2"
+                    noWrap
+                    fontSize={13}
+                    marginTop={1}
                   >
-                    <div className="ticketList__assing-btn">
-                      <PersonAddAltRoundedIcon fontSize="inherit" />
-                    </div>
-                  </IconButton>
-                )}
-              </Stack>
+                    {ticket.lastMessage}
+                  </Typography>
+                }
+              >
+                <CustomerName customer={ticket.customer} />
+              </ListItemText>
+              {ticket.status === Models.TicketStatus.UNASSIGNED && (
+                <IconButton
+                  onClick={() => handleAssignTicket(ticket.id)}
+                  sx={{ margin: "5px" }}
+                >
+                  <div className="ticketList__assing-btn">
+                    <PersonAddAltRoundedIcon fontSize="inherit" />
+                  </div>
+                </IconButton>
+              )}
             </Stack>
-          </ListItem>
-        ))}
-      </List>
-    );
+          </Stack>
+        </ListItem>
+      ))}
+    </List>
+  );
 }

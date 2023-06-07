@@ -39,7 +39,7 @@ export default function ChatNavbar({ ticket }: Props) {
         <Customer customer={ticket.customer} />
         <Stack direction="column" spacing={1} alignItems="flex-start">
           <CustomerName customer={ticket.customer} />
-          <Stack direction="row" alignItems="flex-end" spacing={0.3}>
+          {/* <Stack direction="row" alignItems="flex-end" spacing={0.3}>
             <Typography
               variant="subtitle2"
               fontWeight={"light"}
@@ -53,7 +53,7 @@ export default function ChatNavbar({ ticket }: Props) {
               alt="customer typing"
               className="chatNavbar__loading_typing"
             />
-          </Stack>
+          </Stack> */}
         </Stack>
       </Stack>
       <Stack
