@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
 import { getNewTickets, getTicketUpdate } from "../../services/TicketsServices";
 import "./SideNavbar.scss";
-import { Badge, Box, IconButton, Stack } from "@mui/material";
+import { Badge, Box, IconButton, Stack, Tooltip } from "@mui/material";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import PlaylistAddCheckRoundedIcon from "@mui/icons-material/PlaylistAddCheckRounded";
 import AllInboxRoundedIcon from "@mui/icons-material/AllInboxRounded";
@@ -87,7 +87,7 @@ export function SideNavbar() {
         direction="column"
         justifyContent="flex-start"
         alignItems="center"
-        spacing={2}
+        spacing={4}
       >
         <IconButton onClick={() => handleUnassignedTickets("unassignedBtn")}>
           <Badge
@@ -106,7 +106,9 @@ export function SideNavbar() {
                   : "sideNavbar__btn"
               }
             >
-              <AllInboxRoundedIcon fontSize="inherit" />
+              <Tooltip title="New tickets" placement="bottom" arrow>
+                <AllInboxRoundedIcon fontSize="inherit" />
+              </Tooltip>
             </div>
           </Badge>
         </IconButton>
@@ -127,7 +129,9 @@ export function SideNavbar() {
                   : "sideNavbar__btn"
               }
             >
-              <AssignmentIndIcon fontSize="inherit" />
+              <Tooltip title="Your assigned tickets" placement="bottom" arrow>
+                <AssignmentIndIcon fontSize="inherit" />
+              </Tooltip>
             </div>
           </Badge>
         </IconButton>
@@ -139,7 +143,9 @@ export function SideNavbar() {
                 : "sideNavbar__btn"
             }
           >
-            <HowToRegRoundedIcon fontSize="inherit" />
+            <Tooltip title="Your resolved tickets" placement="bottom" arrow>
+              <HowToRegRoundedIcon fontSize="inherit" />
+            </Tooltip>
           </div>
         </IconButton>
         <IconButton onClick={() => handleAllResolvedTickets("resolvedBtn")}>
@@ -150,7 +156,9 @@ export function SideNavbar() {
                 : "sideNavbar__btn"
             }
           >
-            <PlaylistAddCheckRoundedIcon fontSize="inherit" />
+            <Tooltip title="All resolved tickets" placement="bottom" arrow>
+              <PlaylistAddCheckRoundedIcon fontSize="inherit" />
+            </Tooltip>
           </div>
         </IconButton>
       </Stack>
