@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { useAppSelector } from "../../redux/hooks";
 import "./ChatNavbar.scss";
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
-import { Stack, Button, Typography } from "@mui/material";
-import { Ticket } from "../../apiModels";
+import { Stack, Button} from "@mui/material";
+import { Ticket, TicketStatus } from "../../apiModels";
 import ModalConfirmation from "../modalConfirmation/ModalConfirmation";
 interface Props {
   ticket: Ticket;
@@ -12,6 +13,8 @@ interface Props {
 export default function ChatNavbar({ ticket }: Props) {
   const [openModal, setOpenModal] = useState(false);
   const [typeButton, setTypeButton] = useState("");
+
+  //const ticket = useAppSelector((state) => state.ticket.ticket);
 
   const agentId = "0";
 
@@ -62,7 +65,8 @@ export default function ChatNavbar({ ticket }: Props) {
         alignItems="center"
         paddingRight={"15px"}
       >
-        {ticket.agent?.id === agentId ? (
+        {ticket.agent?.id === agentId ||
+        ticket.status === TicketStatus.RESOLVED ? (
           <Button
             disabled
             variant="contained"
@@ -92,15 +96,28 @@ export default function ChatNavbar({ ticket }: Props) {
           typeButton={typeButton}
           ticket={ticket}
         />
-        <Button
-          variant="contained"
-          size="medium"
-          color="secondary"
-          sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
-          onClick={() => handleOpenModal("resolvedButton")}
-        >
-          Resolve
-        </Button>
+        {ticket.status === TicketStatus.RESOLVED ? (
+          <Button
+            disabled
+            variant="contained"
+            size="medium"
+            color="secondary"
+            sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
+            onClick={() => handleOpenModal("resolvedButton")}
+          >
+            Resolve
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            size="medium"
+            color="secondary"
+            sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
+            onClick={() => handleOpenModal("resolvedButton")}
+          >
+            Resolve
+          </Button>
+        )}
         <ModalConfirmation
           openModal={openModal}
           handleCloseModal={handleCloseModal}
