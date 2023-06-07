@@ -1,7 +1,7 @@
 import "./ChatBox.scss";
 import { Box, Typography } from "@mui/material";
 import { useAppSelector, useAppDispatch } from "../../redux/hooks";
-import { receiveNewTicketEvent} from "../../redux/reducers/TicketReducer";
+import { receiveNewTicketEvent } from "../../redux/reducers/TicketReducer";
 import ChatNavbar from "./ChatNavbar";
 import Chat from "../chat/Chat";
 import ChatInput from "./ChatInput";
@@ -19,13 +19,13 @@ export default function ChatBox() {
       const callback = (event: TicketEvent) => {
         dispatch(receiveNewTicketEvent(event));
       };
-
       listenChatRoom(ticket.id, callback);
 
       return () => {
-        stopListeningChatRoom(callback);
+        stopListeningChatRoom(ticket.id, callback);
       };
     }
+    //eslint-disable-next-line
   }, [ticket]);
 
   return ticket ? (
