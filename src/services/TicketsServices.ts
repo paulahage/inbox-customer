@@ -18,25 +18,26 @@ export const getTicketUpdate = (callback: (oneTicket: Ticket) => void) => {
   });
 };
 
-const activeListeners: ((event: TicketEvent) => void)[] = [];
+//const activeListeners: ((event: TicketEvent) => void)[] = [];
 
 export const listenChatRoom = (
   ticketId: string,
   callback: (event: TicketEvent) => void
 ) => {
-  socket.emit('join_ticket', ticketId);
+  socket.emit("join_ticket", ticketId);
   socket.on(NotificationEvent.TICKET_NEW_EVENT, callback);
-
-  activeListeners.push(callback);
+  //activeListeners.push(callback);
 };
 
 export const stopListeningChatRoom = (
+  ticketId: string,
   callback: (event: TicketEvent) => void
 ) => {
+  socket.emit("leave_ticket", ticketId);
   socket.off(NotificationEvent.TICKET_NEW_EVENT, callback);
 
-  const index = activeListeners.indexOf(callback);
-  if (index !== -1) {
-    activeListeners.splice(index, 1);
-  }
+  // const index = activeListeners.indexOf(callback);
+  // if (index !== -1) {
+  //   activeListeners.splice(index, 1);
+  // }
 };
