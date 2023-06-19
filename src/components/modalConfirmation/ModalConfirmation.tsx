@@ -1,10 +1,12 @@
 import { Typography, Modal, Box, IconButton, Stack } from "@mui/material";
 import { Ticket } from "../../apiModels";
+import { useAppDispatch } from "../../redux/hooks";
 import "./ModalConfirmation.scss";
 import AssignmentIndIcon from "@mui/icons-material/AssignmentInd";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import { reAssignTicket, resolvedTicket } from "../../services/ApiServices";
+import { assignTicket, resolvedTicket } from "../../services/ApiServices";
+
 interface Props {
   ticket: Ticket;
   openModal: any;
@@ -18,8 +20,9 @@ export default function ModalConfirmation({
   handleCloseModal,
   typeButton,
 }: Props) {
-  const handleReAssignTicket = () => {
-    reAssignTicket(ticket.id);
+
+  const handleAssignTicket = () => {
+    assignTicket(ticket.id);
     handleCloseModal();
   };
 
@@ -38,13 +41,13 @@ export default function ModalConfirmation({
           marginTop={1}
           fontSize={15}
         >
-          {typeButton === "reAssign"
+          {typeButton === "assign"
             ? "Are you sure to assign this ticket to yourself?"
             : "Are your sure to close this ticket and mark it as resolved?"}
         </Typography>
-        {typeButton === "reAssign" ? (
+        {typeButton === "assign" ? (
           <Stack direction="row" alignItems="center" spacing={4}>
-            <IconButton onClick={handleReAssignTicket}>
+            <IconButton onClick={handleAssignTicket}>
               <div className="confirm-btn">
                 <AssignmentIndIcon fontSize="inherit" />
               </div>

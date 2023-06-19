@@ -55,11 +55,11 @@ export const sendAgentMessage = (ticketId: string, message: string) => {
   }).then((response) => response);
 };
 
-export const reAssignTicket = (ticketId: string) => {
-  fetch(`${URL_BASE}/ticket/${ticketId}/assign/${agentId}`, {
-    method: "POST",
-  }).then((response) => response);
-};
+// export const reAssignTicket = (ticketId: string) => {
+//   fetch(`${URL_BASE}/ticket/${ticketId}/assign/${agentId}`, {
+//     method: "POST",
+//   }).then((response) => response);
+// };
 
 export const resolvedTicket = (ticketId: string) => {
   fetch(`${URL_BASE}/ticket/${ticketId}/resolve/${agentId}`, {

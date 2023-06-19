@@ -31,13 +31,13 @@ export const ticketSlice = createSlice({
         if (Object.hasOwn(action.payload,'isNewTicket')) {
           const ticketNotificationIndex = state.tickets.findIndex((ticket) => ticket.id === action.payload.id);
           state.tickets[ticketNotificationIndex] = { ...action.payload, isNewTicket: false };
-          if (state.listView === "unassignedList") {
+        if (state.listView === "unassignedList") {
             state.unassignedTicketsCount = state.unassignedTicketsCount.filter((ticket) => ticket.id !== action.payload.id);
-          }
+        }
           if (state.listView === "assignedAgentList" && action.payload.agent?.id === "0") {
             state.assignedTicketByAgentCount = state.assignedTicketByAgentCount.filter((ticket) => ticket.id !== action.payload.id);
-          }
         }
+      }
       state.ticket = action.payload;
       return state;
     },
@@ -144,6 +144,10 @@ export const ticketSlice = createSlice({
       state.listView = action.payload;
       return state;
     },
+    cleanChat: (state: TicketState) => {
+      state.ticket = undefined;
+      return state;
+    },
   },
 });
 
@@ -158,6 +162,7 @@ export const {
   receiveListView,
   receiveNewTicket,
   receiveTicketStatusUpdate,
+  cleanChat,
 } = ticketSlice.actions;
 
 export const ticketActions = ticketSlice.actions;
