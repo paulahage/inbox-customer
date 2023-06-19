@@ -1,7 +1,7 @@
 import { URL_BASE, URL_GET_TICKETS, URL_ALL_RESOLVED_TICKETS } from "../utils";
 import { Ticket } from "../apiModels";
 
-const agentId = 0;
+export const agentId = "0";
 
 export const getUnassignedTickets = (callBack: (list: Ticket[]) => void) => {
   fetch(URL_GET_TICKETS)
