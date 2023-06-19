@@ -94,7 +94,7 @@ export default function ChatNavbar({ ticket }: Props) {
           typeButton={typeButton}
           ticket={ticket}
         />
-        {ticket.status === TicketStatus.RESOLVED ? (
+        {ticket.status === TicketStatus.RESOLVED  || ticket.status === TicketStatus.UNASSIGNED? (
           <Button
             disabled
             variant="contained"
