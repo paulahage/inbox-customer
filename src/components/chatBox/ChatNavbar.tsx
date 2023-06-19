@@ -73,7 +73,6 @@ export default function ChatNavbar({ ticket }: Props) {
             color="secondary"
             sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
             className="chatNavbar__re-assign-btn"
-            onClick={() => handleOpenModal("reAssign")}
           >
             Assign
           </Button>
@@ -84,7 +83,7 @@ export default function ChatNavbar({ ticket }: Props) {
             color="secondary"
             sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
             className="chatNavbar__re-assign-btn"
-            onClick={() => handleOpenModal("reAssign")}
+            onClick={() => handleOpenModal("assign")}
           >
             Assign
           </Button>
@@ -102,7 +101,6 @@ export default function ChatNavbar({ ticket }: Props) {
             size="medium"
             color="secondary"
             sx={{ borderRadius: 5, fontSize: 12, textTransform: "none" }}
-            onClick={() => handleOpenModal("resolvedButton")}
           >
             Resolve
           </Button>

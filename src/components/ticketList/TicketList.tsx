@@ -23,7 +23,11 @@ export function TicketList() {
   const listView = useAppSelector((state) => state.ticket.listView);
   const dispatch = useAppDispatch();
 
-  const handleAssignTicket = (ticketId: string) => {
+  const handleAssignTicket = (
+    event: React.MouseEvent<HTMLElement>,
+    ticketId: string
+  ) => {
+    event.stopPropagation();
     assignTicket(ticketId);
   };
 
@@ -50,7 +54,11 @@ export function TicketList() {
         alignItems="center"
         sx={{ width: "345px" }}
       >
-        <Typography variant="subtitle1" align="center" sx={{ color: "#918f8f", padding: "10px" }}>
+        <Typography
+          variant="subtitle1"
+          align="center"
+          sx={{ color: "#918f8f", padding: "10px" }}
+        >
           You don't have any assigned tickets
         </Typography>
       </Stack>
@@ -134,7 +142,7 @@ export function TicketList() {
               </ListItemText>
               {ticket.status === Models.TicketStatus.UNASSIGNED && (
                 <IconButton
-                  onClick={() => handleAssignTicket(ticket.id)}
+                  onClick={(event) => handleAssignTicket(event, ticket.id)}
                   sx={{ margin: "5px" }}
                 >
                   <div className="ticketList__assing-btn">
