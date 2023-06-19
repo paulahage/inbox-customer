@@ -1,9 +1,10 @@
 import { useState } from "react";
+import { agentId } from "../../services/ApiServices";
 import { useAppSelector } from "../../redux/hooks";
 import "./ChatNavbar.scss";
 import Customer from "../customer/Customer";
 import CustomerName from "../customer/CustomerName";
-import { Stack, Button} from "@mui/material";
+import { Stack, Button } from "@mui/material";
 import { Ticket, TicketStatus } from "../../apiModels";
 import ModalConfirmation from "../modalConfirmation/ModalConfirmation";
 interface Props {
@@ -15,8 +16,6 @@ export default function ChatNavbar({ ticket }: Props) {
   const [typeButton, setTypeButton] = useState("");
 
   //const ticket = useAppSelector((state) => state.ticket.ticket);
-
-  const agentId = "0";
 
   const handleOpenModal = (typeButton: string) => {
     setTypeButton(typeButton);
