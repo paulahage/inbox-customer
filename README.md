@@ -1,8 +1,8 @@
 # ![favicon-32x32](https://user-images.githubusercontent.com/84124999/235462425-6481d499-3fa4-4432-8b40-f03142e59413.png) Inbox Customer
 
-Inbox Customer is customer service app to be used only in desktops.<br/>
-I developed this project to put in practice my knowledge acquired so far with my studies and also to learn new skills.<br/>
-The main challenge of this project was to developed a live chat customer service using WebSocket on client side.
+Inbox Customer is a fictional customer service app.<br/>
+I developed this project to practice the knowledge acquired so far with my studies and learn new skills.<br/>
+This project's main challenge was to develop a live chat customer service using WebSocket on the client side.
 
 The project was based on an Agile Methodology in collaboration with [@leonardiwagner](https://github.com/leonardiwagner), which played the role of a Project Manager/Senior Developer.
 <br/>
@@ -56,3 +56,4 @@ $ npm start
 <br/>
 
 💻 Result: (in progress) [Inbox Customer](http://website-inbox.s3-website.eu-north-1.amazonaws.com/)
+![mockup_inbox](https://github.com/paulahage/inbox-customer/assets/84124999/666d4b30-f598-413c-b089-3183d6304ead)
